@@ -1,6 +1,12 @@
 # From Pitch to Profit  
 ## The Economic Evolution of Europe’s Top Football Leagues
 
+
+## 🎨 Wireframe
+
+Figma prototype:  
+https://www.figma.com/design/beSusXySDdpg1PuXgSer7I/Sans-titre?node-id=0-1&t=ofjjxGtYV1JtnrXp-1
+
 ---
 
 ## 🎯 Contexte
