@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Football × Business — VisualDon HEIG-VD</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;700&family=Space+Mono:wght@400;700&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<div id="prog"></div>
+<div id="tt"></div>
+
+<nav class="nav">
+  <a class="nav-brand" href="#">FOOT<em>×</em>BUSINESS</a>
+  <ul class="nav-links">
+    <li><a href="#hero">Accueil</a></li>
+    <li><a href="#section-story">Histoire</a></li>
+    <li><a href="#map-section">Carte</a></li>
+    <li><a href="#section-fan-scroll">Supporters</a></li>
+    <li><a href="#section-league-scroll">Ligues</a></li>
+    <li><a href="#section-access">Accessibilité</a></li>
+    <li><a href="#section-compare">Radar</a></li>
+    <li><a href="#section-suisse">Suisse</a></li>
+  </ul>
+</nav>
+
+<header id="hero" class="hero">
+  <div class="hero-pitch"></div>
+  <div class="hero-circle"></div>
+  <div class="hero-copy">
+    <p class="eyebrow">⚽ VisualDon · HEIG-VD · 1990–2026</p>
+    <h1 class="hero-title">FOOT<span class="outline">BALL</span><br><span class="x">×</span><br><span class="accent">BUSINESS</span></h1>
+    <p class="hero-sub">En trente ans, les droits TV, les billets et le merchandising ont transformé le football en industrie à <strong>30 milliards €/an</strong>. Pendant ce temps, le fan moyen paie de plus en plus cher.</p>
+    <a href="#section-story" class="hero-cta">Découvrir l'histoire ↓</a>
+  </div>
+  <div class="hero-stats-strip">
+    <div class="hero-stat"><div class="hero-stat-value" data-count="3400" data-suffix="%">0%</div><div class="hero-stat-label">hausse droits TV Premier League</div></div>
+    <div class="hero-stat"><div class="hero-stat-value" data-count="185" data-suffix="€">0€</div><div class="hero-stat-label">billet moyen Premier League 2026</div></div>
+    <div class="hero-stat"><div class="hero-stat-value" data-count="97" data-suffix="€">0€</div><div class="hero-stat-label">maillot officiel adulte 2026</div></div>
+    <div class="hero-stat"><div class="hero-stat-value" data-count="30" data-prefix="+" data-suffix=" Mrd€">0</div><div class="hero-stat-label">revenus totaux Big 5</div></div>
+  </div>
+</header>
+
+<main>
+<section id="section-story" class="section-story">
+  <div class="inner">
+    <div class="section-head"><p class="slabel">01 — Le tournant historique</p><h2 class="shead">Comment tout a <span class="accent">basculé</span></h2><p class="sbody">Les dates clés qui ont transformé un sport populaire en machine à milliards.</p></div>
+    <div class="timeline" id="timeline"></div>
+  </div>
+</section>
+
+<section id="map-section" class="section">
+  <div class="section-head"><p class="slabel">02 — Carte des ligues</p><h2 class="shead">5 ligues, <span class="accent">5 univers</span></h2><p class="sbody">Clique sur un pays pour explorer droits TV, billets, maillots et abonnement fan.</p></div>
+  <div class="map-layout">
+    <div id="map-container"><div id="map-hint">🖱️ Survole pour info · Clique pour explorer</div></div>
+    <aside class="map-panel"><div id="p-data"><div class="panel-placeholder"><div class="ph-icon">🗺️</div><p>Sélectionne un pays<br>sur la carte</p></div></div></aside>
+  </div>
+  <div id="cpills" class="map-pills"></div>
+  <div class="insights-row">
+    <div class="insight-box"><div class="insight-label">💡 Analyse — L'argent appelle l'argent</div><p class="insight-text">L'écart de droits TV entre la Premier League et la Ligue 1 n'est pas qu'une question de taille de marché : c'est une spirale auto-entretenue. Des droits plus élevés attirent de meilleurs joueurs, ce qui attire plus de téléspectateurs, ce qui fait monter les droits. La <strong>Liga et la Serie A</strong>, qui dominaient pourtant l'Europe dans les années 90-2000, n'ont pas su internationaliser leur produit assez tôt — elles en paient le prix structurellement aujourd'hui.</p></div>
+    <div class="insight-box gold"><div class="insight-label">💡 Analyse — La règle 50+1, un rempart fragile</div><p class="insight-text">La Bundesliga maintient des billets à 15€ grâce à la règle 50+1 qui oblige les fans à détenir la majorité du capital. Mais cette règle est <strong>sous pression croissante</strong> : Hoffenheim, Leverkusen, Wolfsburg y ont déjà dérogé via des investisseurs historiques. Si elle cède, la trajectoire allemande rejoindra mécaniquement celle de l'Angleterre — comme ce fut le cas en France après le rachat du PSG par QSI en 2011.</p></div>
+  </div>
+</section>
+
+<section id="section-fan-scroll" class="scroll-cat-section">
+  <div class="scroll-cat-intro section">
+    <p class="slabel">03 — Le coût d'être supporter</p>
+    <h2 class="shead">Pendant ce temps,<br><span class="accent">le fan paie</span></h2>
+    <p class="sbody">Billet, maillot, abonnements TV : compare le vrai coût d'être supporter selon les ligues.</p>
+    <div class="scroll-cat-selector country-selector" id="fan-scroll-selector"></div>
+  </div>
+  <div class="scroll-sticky-outer" id="fan-sticky-outer">
+    <div class="scroll-sticky-panel" id="fan-sticky-panel">
+      <div class="scroll-left" id="fan-scroll-left"></div>
+      <div class="scroll-right">
+        <div class="scroll-progress-dots" id="fan-progress-dots"></div>
+        <div class="scroll-chart-header">
+          <div class="scroll-chart-title" id="fan-chart-title"></div>
+          <div class="scroll-chart-desc" id="fan-chart-desc"></div>
+        </div>
+        <div id="fan-bar-chart" class="scroll-bar-chart"></div>
+      </div>
+    </div>
+    <div class="scroll-trigger-spacer" id="fan-scroll-spacer"></div>
+  </div>
+  <div class="insights-row" style="max-width:1360px;margin:22px auto 0;padding:0 52px">
+    <div class="insight-box"><div class="insight-label">💡 Analyse — Le billet : qui paie vraiment ?</div><p class="insight-text">La hausse du prix des billets cache une réalité sociale : les supporters historiques des quartiers ouvriers autour d'Anfield, de San Siro ou du Parc des Princes ont progressivement été <strong>déplacés vers les périphéries</strong>, remplacés par une clientèle touristique et corporate. Les stades se vident de leur âme populaire au profit de loges à 500€ la place. En Italie, ce phénomène explique en partie la <strong>baisse des affluences</strong> en Serie A malgré la qualité du jeu.</p></div>
+    <div class="insight-box gold"><div class="insight-label">💡 Analyse — Les abonnements TV, une fragmentation délibérée</div><p class="insight-text">La multiplication des plateformes n'est pas accidentelle : les droits TV sont <strong>vendus en lots séparés</strong> aux enchères pour maximiser les revenus des ligues. En Espagne, voir tous les matchs du Real Madrid en 2026 nécessite Movistar <em>et</em> DAZN. En France, la faillite de Mediapro en 2020 a laissé des millions de fans sans accès légal. Ce modèle pousse paradoxalement au <strong>piratage de masse</strong> — les ligues scient la branche sur laquelle elles sont assises.</p></div>
+  </div>
+</section>
+
+<section id="section-league-scroll" class="scroll-cat-section scroll-cat-league">
+  <div class="scroll-cat-intro section">
+    <p class="slabel">04 — Les revenus de la ligue</p>
+    <h2 class="shead">Une machine<br>à <span class="accent">milliards</span></h2>
+    <p class="sbody">Droits TV, sponsors, billetterie, merchandising : les revenus colossaux qui financent le spectacle.</p>
+    <div class="scroll-cat-selector country-selector" id="league-scroll-selector"></div>
+  </div>
+  <div class="scroll-sticky-outer" id="league-sticky-outer">
+    <div class="scroll-sticky-panel" id="league-sticky-panel">
+      <div class="scroll-left" id="league-scroll-left"></div>
+      <div class="scroll-right">
+        <div class="scroll-progress-dots" id="league-progress-dots"></div>
+        <div class="scroll-chart-header">
+          <div class="scroll-chart-title" id="league-chart-title"></div>
+          <div class="scroll-chart-desc" id="league-chart-desc"></div>
+        </div>
+        <div id="league-bar-chart" class="scroll-bar-chart"></div>
+      </div>
+    </div>
+    <div class="scroll-trigger-spacer" id="league-scroll-spacer"></div>
+  </div>
+  <div class="insights-row" style="max-width:1360px;margin:22px auto 0;padding:0 52px">
+    <div class="insight-box"><div class="insight-label">💡 Analyse — Les salaires comme arme concurrentielle</div><p class="insight-text">Quand la masse salariale d'une ligue absorbe plus de 90% de ses droits TV, il ne reste presque rien pour les infrastructures, la formation ou la dette. La Serie A, qui consacrait déjà 85% de ses revenus TV aux salaires dans les années 2000, <strong>a décliné sportivement</strong> au moment même où elle atteignait son pic financier — Calciopoli n'est qu'un catalyseur d'une crise déjà structurelle.</p></div>
+    <div class="insight-box gold"><div class="insight-label">💡 Analyse — Le sponsor comme miroir du soft power</div><p class="insight-text">Les revenus sponsors de la Ligue 1 explosent depuis 2011 non pas grâce à la qualité du championnat, mais grâce au <strong>PSG comme vitrine du Qatar</strong>. De même, Manchester City (Abu Dhabi), Chelsea (Abramovich puis Boehly) et Newcastle (Arabie Saoudite) ont transformé leurs clubs en instruments de diplomatie sportive. Les sponsors ne financent plus le foot — ils <strong>achètent de la légitimité géopolitique</strong> à travers lui.</p></div>
+  </div>
+</section>
+
+<section id="section-access" class="section">
+  <div class="section-head">
+    <p class="slabel">05 — Accessibilité dans le temps</p>
+    <h2 class="shead">Le foot, de moins en<br><span class="accent">moins accessible</span></h2>
+    <p class="sbody">Score d'accessibilité : rapport entre le budget annuel d'un supporter (billets + maillot + abos TV) et le salaire moyen du pays. Plus le score baisse, plus le foot devient un luxe.</p>
+  </div>
+  <div id="access-selector" class="country-selector"></div>
+  <div class="chart-block">
+    <div class="chart-meta"><div><h3>Score d'accessibilité · 1990–2026</h3><p>100 = très accessible · 0 = inaccessible · budget supporter / salaire mensuel moyen</p></div></div>
+    <div id="access-chart"></div>
+  </div>
+  <div class="insights-row">
+    <div class="insight-box"><div class="insight-label">💡 Analyse — Accessibilité et identité de classe</div><p class="insight-text">La corrélation entre la baisse d'accessibilité et la <strong>désindustrialisation</strong> des villes de football n'est pas fortuite. Liverpool, Manchester, Newcastle, Dortmund, Turin : ce sont des villes ouvrières dont les clubs ont été rachetés par des capitaux étrangers au moment même où leur base économique s'effondrait. Le supporter historique voit son club s'enrichir et son stade se transformer — mais <strong>pour quelqu'un d'autre</strong>.</p></div>
+    <div class="insight-box gold"><div class="insight-label">💡 Analyse — La France, le cas à part</div><p class="insight-text">La Ligue 1 présente un paradoxe : ses droits TV ont progressé de +960% depuis 1990, mais son score d'accessibilité reste <strong>relativement correct</strong> comparé à l'Espagne ou l'Italie. La raison : les salaires français sont parmi les plus élevés d'Europe et les prix des billets hors PSG restent modérés.</p></div>
+  </div>
+</section>
+
+<section id="section-compare" class="section">
+  <div class="section-head"><p class="slabel">06 — Comparaison multidimensionnelle</p><h2 class="shead">Quelle est la ligue<br><span class="accent">la plus chère ?</span></h2><p class="sbody">Radar sur 5 dimensions : abos TV, billet, maillot, budget saison, accessibilité. Survole pour le détail · 2026.</p></div>
+  <div id="compare-selector" class="country-selector"></div>
+  <div class="chart-block" style="padding:16px 50px"><div id="radar-chart"></div></div>
+  <div class="insights-row">
+    <div class="insight-box"><div class="insight-label">💡 Analyse — La convergence vers le haut par le bas</div><p class="insight-text">Le radar révèle que La Liga, la Serie A et la Ligue 1 occupent un <strong>espace intermédiaire inconfortable</strong> : elles ont adopté la logique financière anglaise sans en avoir les revenus TV. Trop chères pour conserver leur base populaire, pas assez riches pour rivaliser sportivement avec la PL.</p></div>
+    <div class="insight-box gold"><div class="insight-label">💡 Analyse — L'accessibilité comme indicateur de santé démocratique</div><p class="insight-text">Quand la Bundesliga maintient un score de 91 pendant que la PL chute à 8, il ne s'agit plus seulement d'économie sportive — il s'agit du type de société que ces ligues contribuent à construire. Le foot reste-t-il un <strong>bien commun ou un produit de luxe</strong> ?</p></div>
+  </div>
+</section>
+
+<section id="section-suisse" class="section-suisse">
+  <div class="inner">
+    <div class="section-head">
+      <p class="slabel">07 — Et chez nous ?</p>
+      <h2 class="shead">La Suisse face<br>aux <span class="accent">géants</span></h2>
+      <p class="sbody">La Swiss Super League reste dans une autre dimension économique. Mais les mêmes logiques marchandes s'y installent progressivement.</p>
+    </div>
+    <div class="swiss-grid" id="swiss-comparison"></div>
+    <div class="insights-row">
+      <div class="insight-box blue"><div class="insight-label">💡 Analyse — La richesse nationale comme bouclier temporaire</div><p class="insight-text">Le fan suisse bénéficie d'un <strong>effet richesse nationale</strong> qui masque l'inflation du foot local. Avec un salaire moyen deux fois supérieur à la moyenne européenne, même des billets en hausse restent proportionnellement abordables. Mais c'est un bouclier, pas une solution.</p></div>
+      <div class="insight-box blue"><div class="insight-label">💡 Analyse — La Swiss SL, laboratoire du futur ?</div><p class="insight-text">La Super League suisse offre une perspective rare : celle d'un football <strong>encore ancré dans sa communauté</strong>. La vraie question est : <strong>jusqu'où veut-elle aller</strong> avant de décider que le modèle des Big 5 ne lui convient pas ?</p></div>
+    </div>
+    <div class="swiss-toggle-wrap" id="swiss-toggle-wrap">
+      <div class="swiss-toggle-card">
+        <div class="swiss-toggle-icon">🇨🇭</div>
+        <div class="swiss-toggle-text">
+          <div class="swiss-toggle-title">La Suisse joue-t-elle dans la même cour ?</div>
+          <div class="swiss-toggle-sub">Active le mode Suisse pour intégrer la Swiss SL dans tous les graphiques et comparer directement avec les 5 grands championnats.</div>
+        </div>
+        <button class="swiss-toggle-btn" id="swiss-mode-btn" aria-pressed="false">
+          <span class="stb-off">Activer la Suisse</span>
+          <span class="stb-on">Suisse activée ✓</span>
+          <span class="stb-track"><span class="stb-thumb"></span></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="footer">
+  <div class="footer-brand">FOOT<em>×</em>BUSINESS</div>
+  <div><p>Visualisation de données · HEIG-VD COMEM+ · VisualDon 2026</p><p>Sources : Deloitte Football Money League · UEFA · DFL · LFP · SFL · Football Supporters Europe · Eurostat</p></div>
+</footer>
+
+<script type="module" src="/src/main.js"></script>
+</body>
+</html>

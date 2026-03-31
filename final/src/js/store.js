@@ -1,0 +1,25 @@
+// Objet partagé par tous les modules.
+// Rempli par initData() dans data.js avant tout rendu.
+export const store = {
+  swissMode: false,
+  d3: null,
+  YEARS: null,
+  YEARS_EXT: null,
+  LEAGUES: null,
+  COUNTRIES: null,
+  TIMELINE: null,
+  CLUB_COORDS: null,
+  TV: null,
+  TICKET: null,
+  JERSEY: null,
+  TV_SUB: null,
+  TV_SUB_FULL: null,
+  AVG_SALARY_TS: null,
+  WAGE_BILL: null,
+  SPONSOR_REV: null,
+  MERCH_REV: null,
+  STADIUM_REV: null,
+  TV_EXT: null,
+  TICKET_EXT: null,
+  JERSEY_EXT: null,
+};
