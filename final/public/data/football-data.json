@@ -11,17 +11,17 @@
   },
 
   "leagues": {
-    "Premier League": { "color": "#d32f2f", "flag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿", "iso": "826" },
-    "La Liga":        { "color": "#e6a817", "flag": "🇪🇸",          "iso": "724" },
-    "Bundesliga":     { "color": "#2e7d32", "flag": "🇩🇪",          "iso": "276" },
-    "Serie A":        { "color": "#1565c0", "flag": "🇮🇹",          "iso": "380" },
-    "Ligue 1":        { "color": "#6a1b9a", "flag": "🇫🇷",          "iso": "250" },
-    "Swiss SL":       { "color": "#00897b", "flag": "🇨🇭",          "iso": "756" }
+    "Premier League": { "color": "#9c27b0", "flag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿", "iso": "826" },
+    "La Liga":        { "color": "#ef4444", "flag": "🇪🇸",          "iso": "724" },
+    "Bundesliga":     { "color": "#fbbf24", "flag": "🇩🇪",          "iso": "276" },
+    "Serie A":        { "color": "#10b981", "flag": "🇮🇹",          "iso": "380" },
+    "Ligue 1":        { "color": "#3b82f6", "flag": "🇫🇷",          "iso": "250" },
+    "Swiss SL":       { "color": "#f97316", "flag": "🇨🇭",          "iso": "756" }
   },
 
   "countries": {
     "England": {
-      "league": "Premier League", "color": "#d32f2f", "iso": "826",
+      "league": "Premier League", "color": "#9c27b0", "iso": "826",
       "clubs": 20, "pop": "56M", "club": "Manchester City",
       "tv": 3100, "ticket": 185, "jersey": 97, "tvSub": 57, "tvSubFull": 142,
       "wageBill": 3780, "sponsorRevenue": 2960, "stadiumRevenue": 1780, "merchandisingRevenue": 2240,
@@ -31,7 +31,7 @@
       "source_tv": "Deloitte Money League 2024 — droits domestiques + internationaux consolidés"
     },
     "Spain": {
-      "league": "La Liga", "color": "#e6a817", "iso": "724",
+      "league": "La Liga", "color": "#ef4444", "iso": "724",
       "clubs": 20, "pop": "47M", "club": "Real Madrid",
       "tv": 1500, "ticket": 75, "jersey": 85, "tvSub": 45, "tvSubFull": 98,
       "wageBill": 2240, "sponsorRevenue": 1960, "stadiumRevenue": 1020, "merchandisingRevenue": 1740,
@@ -41,7 +41,7 @@
       "source_tv": "LaLiga rapport financier 2022-23"
     },
     "Germany": {
-      "league": "Bundesliga", "color": "#2e7d32", "iso": "276",
+      "league": "Bundesliga", "color": "#fbbf24", "iso": "276",
       "clubs": 18, "pop": "83M", "club": "Bayern Munich",
       "tv": 1400, "ticket": 15, "jersey": 75, "tvSub": 41, "tvSubFull": 78,
       "wageBill": 1584, "sponsorRevenue": 1548, "stadiumRevenue": 1116, "merchandisingRevenue": 1332,
@@ -51,7 +51,7 @@
       "source_tv": "DFL Economic Report 2024"
     },
     "Italy": {
-      "league": "Serie A", "color": "#1565c0", "iso": "380",
+      "league": "Serie A", "color": "#10b981", "iso": "380",
       "clubs": 20, "pop": "60M", "club": "Inter Milan",
       "tv": 1300, "ticket": 60, "jersey": 79, "tvSub": 43, "tvSubFull": 89,
       "wageBill": 1680, "sponsorRevenue": 1440, "stadiumRevenue": 760, "merchandisingRevenue": 1160,
@@ -61,7 +61,7 @@
       "source_tv": "Lega Serie A rapport annuel 2022-23"
     },
     "France": {
-      "league": "Ligue 1", "color": "#6a1b9a", "iso": "250",
+      "league": "Ligue 1", "color": "#3b82f6", "iso": "250",
       "clubs": 18, "pop": "68M", "club": "PSG",
       "tv": 900, "ticket": 50, "jersey": 71, "tvSub": 38, "tvSubFull": 74,
       "wageBill": 1188, "sponsorRevenue": 1098, "stadiumRevenue": 576, "merchandisingRevenue": 792,
@@ -71,7 +71,7 @@
       "source_tv": "LFP rapport droits TV 2023-24 (post-crise Mediapro)"
     },
     "Switzerland": {
-      "league": "Swiss SL", "color": "#00897b", "iso": "756",
+      "league": "Swiss SL", "color": "#f97316", "iso": "756",
       "clubs": 12, "pop": "8.7M", "club": "Young Boys",
       "tv": 55, "ticket": 28, "jersey": 48, "tvSub": 22, "tvSubFull": 38,
       "wageBill": 100, "sponsorRevenue": 96, "stadiumRevenue": 336, "merchandisingRevenue": 60,
