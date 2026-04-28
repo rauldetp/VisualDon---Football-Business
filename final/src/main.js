@@ -1,4 +1,6 @@
 import * as d3 from 'd3';
+import gsap from 'gsap';
+import ScrollTrigger from 'gsap/ScrollTrigger';
 import './css/styles.css';
 
 import { store }              from './js/store.js';
@@ -14,6 +16,7 @@ import {
 
 async function boot() {
   store.d3 = d3;
+  gsap.registerPlugin(ScrollTrigger);
   const raw = await loadData();
   initData(raw);
   initApp();
@@ -45,19 +48,7 @@ function initApp() {
     });
   }, 0.45);
 
-  const tl = document.getElementById('timeline');
-  if (tl) {
-    store.TIMELINE.forEach((item, idx) => {
-      const el = document.createElement('div'); el.className = 'tl-item';
-      const co = `<div class="tl-yr">${item.year}</div><div class="tl-ttl">${item.title}</div><div class="tl-body">${item.body}</div><span class="tl-tag ${item.tag}">${item.tl}</span>`;
-      const sp = '<div class="tl-sp"><div class="tl-dot"></div></div>';
-      const em = '<div class="tl-em"></div>';
-      const ct = `<div class="tl-content">${co}</div>`;
-      el.innerHTML = (idx % 2 === 0) ? ct + sp + em : em + sp + ct;
-      tl.appendChild(el);
-      onEnter(el, () => el.classList.add('in'), 0.1);
-    });
-  }
+  initTimelineCarousel();
 
   /* ---- FAN ---- */
   const fanScrollActive = new Set(Object.keys(store.LEAGUES).filter(l => l !== 'Swiss SL'));
@@ -244,3 +235,74 @@ function initApp() {
 }
 
 boot();
+
+function initTimelineCarousel() {
+  const boxOuter = document.querySelector('.gallery_box_outer');
+  if (!boxOuter || !store.TIMELINE?.length) return;
+  boxOuter.innerHTML = '';
+  const total = store.TIMELINE.length;
+
+  const cards = [];
+  store.TIMELINE.forEach((item, i) => {
+    const card = document.createElement('div');
+    card.className = 'gallery_box_in';
+    const body = typeof item.body === 'string' ? item.body.replace(/<[^>]+>/g, ' ') : '';
+    card.innerHTML = `
+      <div class="overlay">
+        <div class="gallery-card-year">${item.year}</div>
+        <h3>${item.title}</h3>
+        <p>${body}</p>
+        ${item.tl ? `<span class="gallery-card-tag tl-tag ${item.tl}">${item.tl}</span>` : ''}
+      </div>`;
+    cards.push(card);
+    boxOuter.appendChild(card);
+  });
+
+  const galleryBox = document.querySelector('.gallery_box');
+  const galleryOuter = document.querySelector('.gallery_box_outer');
+  if (!galleryBox || !galleryOuter) return;
+
+  const referenceCard = cards[0] || null;
+  const cardWidth = referenceCard ? Math.round(referenceCard.getBoundingClientRect().width) : 300;
+  const targetRadius = Math.max(360, Math.round((cardWidth * 1.05) / (2 * Math.sin(Math.PI / total))));
+  const radius = Math.min(targetRadius, 620);
+
+  cards.forEach((card, i) => {
+    card.style.transform = `translate(-50%, -50%) rotateY(${i * (360 / total)}deg) translateZ(${radius}px)`;
+  });
+
+  const images = [
+    'https://images.unsplash.com/photo-1507925921958-8a62f3c3d94b?auto=format&fit=crop&w=900&q=80',
+    'https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=900&q=80',
+    'https://images.unsplash.com/photo-1517487881594-2787fef5ebf7?auto=format&fit=crop&w=900&q=80',
+    'https://images.unsplash.com/photo-1542736667-069246bdbc64?auto=format&fit=crop&w=900&q=80',
+    'https://images.unsplash.com/photo-1517487881594-2787fef5ebf7?auto=format&fit=crop&w=900&q=80',
+    'https://images.unsplash.com/photo-1509395176047-4a66953fd231?auto=format&fit=crop&w=900&q=80',
+    'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80',
+    'https://images.unsplash.com/photo-1483721310020-03333e577078?auto=format&fit=crop&w=900&q=80',
+    'https://images.unsplash.com/photo-1508953691664-f62e5b748c7a?auto=format&fit=crop&w=900&q=80'
+  ];
+
+  galleryOuter.querySelectorAll('.gallery_box_in').forEach((card, idx) => {
+    card.style.backgroundImage = `linear-gradient(rgba(0,0,0,.2), rgba(0,0,0,.45)), url('${images[idx % images.length]}')`;
+  });
+
+  const totalCards = galleryOuter.querySelectorAll('.gallery_box_in').length || 1;
+  const snapConfig = totalCards > 1 ? { snapTo: 1 / (totalCards - 1), duration: 0.28, ease: 'power1.out' } : false;
+  const visibleHeight = Math.max(galleryBox.offsetHeight, window.innerHeight * 0.65);
+  const pinDistance = Math.round(visibleHeight + (totalCards - 1) * 28);
+
+  gsap.timeline({
+    scrollTrigger: {
+      trigger: galleryBox,
+      start: 'center center',
+      end: `+=${pinDistance}`,
+      scrub: 1,
+      pin: true,
+      pinSpacing: true,
+      anticipatePin: 1,
+      snap: snapConfig,
+      markers: false
+    }
+  }).to('.gallery_box_outer', { rotateY: -360, ease: 'none' });
+}
