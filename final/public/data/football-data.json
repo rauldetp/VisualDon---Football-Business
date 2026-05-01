@@ -9,286 +9,1008 @@
     "swiss": "Swiss Football League financial report 2023 / CIES Football Observatory",
     "note": "Séries temporelles estimées par interpolation entre points-clés documentés. Valeurs 2026 = projection tendancielle."
   },
-
   "leagues": {
-    "Premier League": { "color": "#9c27b0", "flag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿", "iso": "826" },
-    "La Liga":        { "color": "#ef4444", "flag": "🇪🇸",          "iso": "724" },
-    "Bundesliga":     { "color": "#fbbf24", "flag": "🇩🇪",          "iso": "276" },
-    "Serie A":        { "color": "#10b981", "flag": "🇮🇹",          "iso": "380" },
-    "Ligue 1":        { "color": "#3b82f6", "flag": "🇫🇷",          "iso": "250" },
-    "Swiss SL":       { "color": "#f97316", "flag": "🇨🇭",          "iso": "756" }
+    "Premier League": {
+      "color": "#9c27b0",
+      "flag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+      "iso": "826"
+    },
+    "La Liga": {
+      "color": "#ef4444",
+      "flag": "🇪🇸",
+      "iso": "724"
+    },
+    "Bundesliga": {
+      "color": "#fbbf24",
+      "flag": "🇩🇪",
+      "iso": "276"
+    },
+    "Serie A": {
+      "color": "#10b981",
+      "flag": "🇮🇹",
+      "iso": "380"
+    },
+    "Ligue 1": {
+      "color": "#3b82f6",
+      "flag": "🇫🇷",
+      "iso": "250"
+    },
+    "Swiss SL": {
+      "color": "#f97316",
+      "flag": "🇨🇭",
+      "iso": "756"
+    }
   },
-
   "countries": {
     "England": {
-      "league": "Premier League", "color": "#9c27b0", "iso": "826",
-      "clubs": 20, "pop": "56M", "club": "Manchester City",
-      "tv": 3100, "ticket": 185, "jersey": 97, "tvSub": 57, "tvSubFull": 142,
-      "wageBill": 3780, "sponsorRevenue": 2960, "stadiumRevenue": 1780, "merchandisingRevenue": 2240,
-      "topClubRevenue": 714, "avgSalary": 33800,
-      "growth": "+3 400%",
+      "league": "Premier League",
+      "color": "#9c27b0",
+      "iso": "826",
+      "clubs": 20,
+      "pop": "56M",
+      "club": "Manchester City",
+      "tv": 1935,
+      "ticket": 70,
+      "jersey": 100,
+      "tvSub": 57,
+      "tvSubFull": 142,
+      "wageBill": 3780,
+      "sponsorRevenue": 2960,
+      "stadiumRevenue": 1780,
+      "merchandisingRevenue": 2240,
+      "topClubRevenue": 714,
+      "avgSalary": 33800,
+      "growth": "+2 600%",
       "desc": "La Premier League domine financièrement toutes les ligues. Ses droits TV sont 2× supérieurs à la Liga grâce à une distribution mondiale massive.",
       "source_tv": "Deloitte Money League 2024 — droits domestiques + internationaux consolidés"
     },
     "Spain": {
-      "league": "La Liga", "color": "#ef4444", "iso": "724",
-      "clubs": 20, "pop": "47M", "club": "Real Madrid",
-      "tv": 1500, "ticket": 75, "jersey": 85, "tvSub": 45, "tvSubFull": 98,
-      "wageBill": 2240, "sponsorRevenue": 1960, "stadiumRevenue": 1020, "merchandisingRevenue": 1740,
-      "topClubRevenue": 831, "avgSalary": 26000,
-      "growth": "+1 500%",
+      "league": "La Liga",
+      "color": "#ef4444",
+      "iso": "724",
+      "clubs": 20,
+      "pop": "47M",
+      "club": "Real Madrid",
+      "tv": 1500,
+      "ticket": 54,
+      "jersey": 95,
+      "tvSub": 45,
+      "tvSubFull": 98,
+      "wageBill": 2240,
+      "sponsorRevenue": 1960,
+      "stadiumRevenue": 1020,
+      "merchandisingRevenue": 1740,
+      "topClubRevenue": 831,
+      "avgSalary": 26000,
+      "growth": "+2 400%",
       "desc": "La Liga a longtemps misé sur le duo Barça-Real. Sa popularité mondiale lui vaut des droits TV importants, mais la PL creuse l'écart depuis 2015.",
       "source_tv": "LaLiga rapport financier 2022-23"
     },
     "Germany": {
-      "league": "Bundesliga", "color": "#fbbf24", "iso": "276",
-      "clubs": 18, "pop": "83M", "club": "Bayern Munich",
-      "tv": 1400, "ticket": 15, "jersey": 75, "tvSub": 41, "tvSubFull": 78,
-      "wageBill": 1584, "sponsorRevenue": 1548, "stadiumRevenue": 1116, "merchandisingRevenue": 1332,
-      "topClubRevenue": 765, "avgSalary": 40000,
-      "growth": "+870%",
+      "league": "Bundesliga",
+      "color": "#fbbf24",
+      "iso": "276",
+      "clubs": 18,
+      "pop": "83M",
+      "club": "Bayern Munich",
+      "tv": 1100,
+      "ticket": 15,
+      "jersey": 85,
+      "tvSub": 41,
+      "tvSubFull": 78,
+      "wageBill": 1584,
+      "sponsorRevenue": 1548,
+      "stadiumRevenue": 1116,
+      "merchandisingRevenue": 1332,
+      "topClubRevenue": 765,
+      "avgSalary": 40000,
+      "growth": "+1 060%",
       "desc": "La Bundesliga est la plus accessible pour les fans : billets bon marché grâce à la règle 50+1 qui bloque les investisseurs.",
       "source_tv": "DFL Economic Report 2024"
     },
     "Italy": {
-      "league": "Serie A", "color": "#10b981", "iso": "380",
-      "clubs": 20, "pop": "60M", "club": "Inter Milan",
-      "tv": 1300, "ticket": 60, "jersey": 79, "tvSub": 43, "tvSubFull": 89,
-      "wageBill": 1680, "sponsorRevenue": 1440, "stadiumRevenue": 760, "merchandisingRevenue": 1160,
-      "topClubRevenue": 519, "avgSalary": 28000,
-      "growth": "+1 200%",
+      "league": "Serie A",
+      "color": "#10b981",
+      "iso": "380",
+      "clubs": 20,
+      "pop": "60M",
+      "club": "Inter Milan",
+      "tv": 900,
+      "ticket": 54,
+      "jersey": 90,
+      "tvSub": 43,
+      "tvSubFull": 89,
+      "wageBill": 1680,
+      "sponsorRevenue": 1440,
+      "stadiumRevenue": 760,
+      "merchandisingRevenue": 1160,
+      "topClubRevenue": 519,
+      "avgSalary": 28000,
+      "growth": "+800%",
       "desc": "La Serie A a dominé les années 90. Elle a perdu du terrain depuis, mais reste une ligue historique avec des clubs emblématiques.",
       "source_tv": "Lega Serie A rapport annuel 2022-23"
     },
     "France": {
-      "league": "Ligue 1", "color": "#3b82f6", "iso": "250",
-      "clubs": 18, "pop": "68M", "club": "PSG",
-      "tv": 900, "ticket": 50, "jersey": 71, "tvSub": 38, "tvSubFull": 74,
-      "wageBill": 1188, "sponsorRevenue": 1098, "stadiumRevenue": 576, "merchandisingRevenue": 792,
-      "topClubRevenue": 798, "avgSalary": 30000,
-      "growth": "+960%",
+      "league": "Ligue 1",
+      "color": "#3b82f6",
+      "iso": "250",
+      "clubs": 18,
+      "pop": "68M",
+      "club": "PSG",
+      "tv": 520,
+      "ticket": 43,
+      "jersey": 82,
+      "tvSub": 38,
+      "tvSubFull": 74,
+      "wageBill": 1188,
+      "sponsorRevenue": 1098,
+      "stadiumRevenue": 576,
+      "merchandisingRevenue": 792,
+      "topClubRevenue": 798,
+      "avgSalary": 30000,
+      "growth": "+1 200%",
       "desc": "La Ligue 1 est portée par le PSG depuis le rachat qatari en 2011. Sans ce club, la ligue resterait bien moins visible.",
       "source_tv": "LFP rapport droits TV 2023-24 (post-crise Mediapro)"
     },
     "Switzerland": {
-      "league": "Swiss SL", "color": "#f97316", "iso": "756",
-      "clubs": 12, "pop": "8.7M", "club": "Young Boys",
-      "tv": 55, "ticket": 28, "jersey": 48, "tvSub": 22, "tvSubFull": 38,
-      "wageBill": 100, "sponsorRevenue": 96, "stadiumRevenue": 336, "merchandisingRevenue": 60,
-      "topClubRevenue": 48, "avgSalary": 78000,
-      "growth": "+220%",
+      "league": "Swiss SL",
+      "color": "#f97316",
+      "iso": "756",
+      "clubs": 12,
+      "pop": "8.7M",
+      "club": "Young Boys",
+      "tv": 55,
+      "ticket": 35,
+      "jersey": 58,
+      "tvSub": 22,
+      "tvSubFull": 38,
+      "wageBill": 100,
+      "sponsorRevenue": 96,
+      "stadiumRevenue": 336,
+      "merchandisingRevenue": 60,
+      "topClubRevenue": 48,
+      "avgSalary": 78000,
+      "growth": "+1 000%",
       "desc": "La Super League suisse reste dans une autre dimension économique. Mais les mêmes dynamiques d'inflation s'y installent progressivement.",
       "source_tv": "Swiss Football League rapport financier 2022-23"
     }
   },
-
   "tv_rights_history": {
-    "_note": "Points-clés documentés (M€/an), interpolation entre. Sources: Deloitte, UEFA, rapports ligues.",
+    "_note": "Droits domestiques M€/an. Sources: Premier League official, Wikipedia 'English football on television', Gymnasium Journal academic papers (Koutroumanides), Lega Serie A, LaLiga, LFP, DFL Economic Report, SFL.",
     "Premier League": [
-      {"year":1992,"value":44},  {"year":1997,"value":254},
-      {"year":2001,"value":650}, {"year":2004,"value":750},
-      {"year":2007,"value":910}, {"year":2010,"value":1200},
-      {"year":2013,"value":1780},{"year":2016,"value":2700},
-      {"year":2019,"value":3050},{"year":2022,"value":2900},
-      {"year":2025,"value":3100},{"year":2026,"value":3100}
+      {
+        "year": 1992,
+        "value": 70
+      },
+      {
+        "year": 1997,
+        "value": 193
+      },
+      {
+        "year": 2001,
+        "value": 462
+      },
+      {
+        "year": 2004,
+        "value": 394
+      },
+      {
+        "year": 2007,
+        "value": 656
+      },
+      {
+        "year": 2010,
+        "value": 682
+      },
+      {
+        "year": 2013,
+        "value": 1162
+      },
+      {
+        "year": 2016,
+        "value": 1977
+      },
+      {
+        "year": 2019,
+        "value": 1733
+      },
+      {
+        "year": 2022,
+        "value": 1926
+      },
+      {
+        "year": 2025,
+        "value": 1935
+      },
+      {
+        "year": 2026,
+        "value": 1935
+      }
     ],
     "La Liga": [
-      {"year":1992,"value":60},  {"year":1997,"value":200},
-      {"year":2001,"value":450}, {"year":2004,"value":550},
-      {"year":2007,"value":650}, {"year":2010,"value":700},
-      {"year":2013,"value":740}, {"year":2016,"value":1430},
-      {"year":2019,"value":1500},{"year":2022,"value":1500},
-      {"year":2025,"value":1500},{"year":2026,"value":1500}
+      {
+        "year": 1992,
+        "value": 60
+      },
+      {
+        "year": 1997,
+        "value": 140
+      },
+      {
+        "year": 2001,
+        "value": 310
+      },
+      {
+        "year": 2004,
+        "value": 440
+      },
+      {
+        "year": 2007,
+        "value": 550
+      },
+      {
+        "year": 2010,
+        "value": 620
+      },
+      {
+        "year": 2013,
+        "value": 720
+      },
+      {
+        "year": 2016,
+        "value": 1430
+      },
+      {
+        "year": 2019,
+        "value": 1500
+      },
+      {
+        "year": 2022,
+        "value": 1500
+      },
+      {
+        "year": 2025,
+        "value": 1500
+      },
+      {
+        "year": 2026,
+        "value": 1500
+      }
     ],
     "Bundesliga": [
-      {"year":1992,"value":55},  {"year":1997,"value":135},
-      {"year":2001,"value":290}, {"year":2004,"value":300},
-      {"year":2007,"value":390}, {"year":2010,"value":430},
-      {"year":2013,"value":628}, {"year":2016,"value":1160},
-      {"year":2019,"value":1330},{"year":2022,"value":1400},
-      {"year":2025,"value":1400},{"year":2026,"value":1400}
+      {
+        "year": 1992,
+        "value": 95
+      },
+      {
+        "year": 1997,
+        "value": 212
+      },
+      {
+        "year": 2001,
+        "value": 383
+      },
+      {
+        "year": 2004,
+        "value": 440
+      },
+      {
+        "year": 2009,
+        "value": 412
+      },
+      {
+        "year": 2013,
+        "value": 628
+      },
+      {
+        "year": 2016,
+        "value": 1160
+      },
+      {
+        "year": 2019,
+        "value": 1160
+      },
+      {
+        "year": 2022,
+        "value": 1100
+      },
+      {
+        "year": 2025,
+        "value": 1100
+      },
+      {
+        "year": 2026,
+        "value": 1100
+      }
     ],
     "Serie A": [
-      {"year":1992,"value":100}, {"year":1997,"value":340},
-      {"year":2001,"value":750}, {"year":2004,"value":750},
-      {"year":2007,"value":780}, {"year":2010,"value":870},
-      {"year":2013,"value":910}, {"year":2016,"value":1050},
-      {"year":2019,"value":1350},{"year":2022,"value":1300},
-      {"year":2025,"value":1300},{"year":2026,"value":1300}
+      {
+        "year": 1992,
+        "value": 100
+      },
+      {
+        "year": 1997,
+        "value": 340
+      },
+      {
+        "year": 2001,
+        "value": 383
+      },
+      {
+        "year": 2005,
+        "value": 873
+      },
+      {
+        "year": 2010,
+        "value": 844
+      },
+      {
+        "year": 2013,
+        "value": 910
+      },
+      {
+        "year": 2016,
+        "value": 1050
+      },
+      {
+        "year": 2019,
+        "value": 1350
+      },
+      {
+        "year": 2022,
+        "value": 1300
+      },
+      {
+        "year": 2025,
+        "value": 900
+      },
+      {
+        "year": 2026,
+        "value": 900
+      }
     ],
     "Ligue 1": [
-      {"year":1992,"value":40},  {"year":1997,"value":90},
-      {"year":2001,"value":230}, {"year":2004,"value":480},
-      {"year":2007,"value":600}, {"year":2010,"value":600},
-      {"year":2013,"value":607}, {"year":2016,"value":748},
-      {"year":2019,"value":895}, {"year":2020,"value":600},
-      {"year":2022,"value":663}, {"year":2025,"value":900},
-      {"year":2026,"value":900}
+      {
+        "year": 1992,
+        "value": 40
+      },
+      {
+        "year": 1997,
+        "value": 90
+      },
+      {
+        "year": 2001,
+        "value": 230
+      },
+      {
+        "year": 2004,
+        "value": 450
+      },
+      {
+        "year": 2007,
+        "value": 600
+      },
+      {
+        "year": 2010,
+        "value": 600
+      },
+      {
+        "year": 2013,
+        "value": 607
+      },
+      {
+        "year": 2016,
+        "value": 748
+      },
+      {
+        "year": 2019,
+        "value": 895
+      },
+      {
+        "year": 2020,
+        "value": 600
+      },
+      {
+        "year": 2022,
+        "value": 663
+      },
+      {
+        "year": 2025,
+        "value": 520
+      },
+      {
+        "year": 2026,
+        "value": 520
+      }
     ],
     "Swiss SL": [
-      {"year":1992,"value":6},  {"year":1997,"value":10},
-      {"year":2001,"value":16}, {"year":2004,"value":18},
-      {"year":2007,"value":22}, {"year":2010,"value":28},
-      {"year":2013,"value":32}, {"year":2016,"value":38},
-      {"year":2019,"value":43}, {"year":2022,"value":50},
-      {"year":2025,"value":55}, {"year":2026,"value":55}
+      {
+        "year": 1992,
+        "value": 5
+      },
+      {
+        "year": 1997,
+        "value": 8
+      },
+      {
+        "year": 2001,
+        "value": 14
+      },
+      {
+        "year": 2004,
+        "value": 18
+      },
+      {
+        "year": 2007,
+        "value": 22
+      },
+      {
+        "year": 2010,
+        "value": 26
+      },
+      {
+        "year": 2013,
+        "value": 30
+      },
+      {
+        "year": 2016,
+        "value": 36
+      },
+      {
+        "year": 2019,
+        "value": 42
+      },
+      {
+        "year": 2022,
+        "value": 50
+      },
+      {
+        "year": 2025,
+        "value": 55
+      },
+      {
+        "year": 2026,
+        "value": 55
+      }
     ]
   },
-
   "ticket_price_history": {
-    "_note": "Prix moyen billet championnat (€). Sources: Football Supporters Europe, UEFA Fan Survey, Bundesliga Fan Report.",
+    "_note": "Prix billet adulte standard moyen en ligue (€). Sources: Football Supporters Europe Fan Cost Index, FSA UK Annual Survey, DFL Fan Report, UEFA Fan Survey 2023.",
     "Premier League": [
-      {"year":1990,"value":8},  {"year":1995,"value":16},
-      {"year":2000,"value":30}, {"year":2005,"value":45},
-      {"year":2010,"value":72}, {"year":2015,"value":105},
-      {"year":2020,"value":145},{"year":2023,"value":185},
-      {"year":2026,"value":185}
+      {
+        "year": 1990,
+        "value": 6
+      },
+      {
+        "year": 1995,
+        "value": 12
+      },
+      {
+        "year": 2000,
+        "value": 23
+      },
+      {
+        "year": 2005,
+        "value": 35
+      },
+      {
+        "year": 2010,
+        "value": 52
+      },
+      {
+        "year": 2015,
+        "value": 60
+      },
+      {
+        "year": 2019,
+        "value": 62
+      },
+      {
+        "year": 2022,
+        "value": 65
+      },
+      {
+        "year": 2024,
+        "value": 68
+      },
+      {
+        "year": 2026,
+        "value": 70
+      }
     ],
     "La Liga": [
-      {"year":1990,"value":7},  {"year":1995,"value":14},
-      {"year":2000,"value":22}, {"year":2005,"value":32},
-      {"year":2010,"value":45}, {"year":2015,"value":58},
-      {"year":2020,"value":68}, {"year":2023,"value":75},
-      {"year":2026,"value":75}
+      {
+        "year": 1990,
+        "value": 5
+      },
+      {
+        "year": 1995,
+        "value": 10
+      },
+      {
+        "year": 2000,
+        "value": 18
+      },
+      {
+        "year": 2005,
+        "value": 26
+      },
+      {
+        "year": 2010,
+        "value": 35
+      },
+      {
+        "year": 2015,
+        "value": 42
+      },
+      {
+        "year": 2020,
+        "value": 48
+      },
+      {
+        "year": 2023,
+        "value": 52
+      },
+      {
+        "year": 2026,
+        "value": 54
+      }
     ],
     "Bundesliga": [
-      {"year":1990,"value":6},  {"year":1995,"value":8},
-      {"year":2000,"value":9},  {"year":2005,"value":11},
-      {"year":2010,"value":12}, {"year":2015,"value":13},
-      {"year":2020,"value":14}, {"year":2023,"value":15},
-      {"year":2026,"value":15}
+      {
+        "year": 1990,
+        "value": 6
+      },
+      {
+        "year": 1995,
+        "value": 8
+      },
+      {
+        "year": 2000,
+        "value": 9
+      },
+      {
+        "year": 2005,
+        "value": 11
+      },
+      {
+        "year": 2010,
+        "value": 12
+      },
+      {
+        "year": 2015,
+        "value": 13
+      },
+      {
+        "year": 2020,
+        "value": 14
+      },
+      {
+        "year": 2023,
+        "value": 15
+      },
+      {
+        "year": 2026,
+        "value": 15
+      }
     ],
     "Serie A": [
-      {"year":1990,"value":8},  {"year":1995,"value":16},
-      {"year":2000,"value":25}, {"year":2005,"value":35},
-      {"year":2010,"value":42}, {"year":2015,"value":50},
-      {"year":2020,"value":55}, {"year":2023,"value":60},
-      {"year":2026,"value":60}
+      {
+        "year": 1990,
+        "value": 7
+      },
+      {
+        "year": 1995,
+        "value": 14
+      },
+      {
+        "year": 2000,
+        "value": 22
+      },
+      {
+        "year": 2005,
+        "value": 30
+      },
+      {
+        "year": 2010,
+        "value": 37
+      },
+      {
+        "year": 2015,
+        "value": 43
+      },
+      {
+        "year": 2020,
+        "value": 48
+      },
+      {
+        "year": 2023,
+        "value": 52
+      },
+      {
+        "year": 2026,
+        "value": 54
+      }
     ],
     "Ligue 1": [
-      {"year":1990,"value":7},  {"year":1995,"value":12},
-      {"year":2000,"value":18}, {"year":2005,"value":26},
-      {"year":2010,"value":33}, {"year":2015,"value":40},
-      {"year":2020,"value":45}, {"year":2023,"value":50},
-      {"year":2026,"value":50}
+      {
+        "year": 1990,
+        "value": 5
+      },
+      {
+        "year": 1995,
+        "value": 10
+      },
+      {
+        "year": 2000,
+        "value": 16
+      },
+      {
+        "year": 2005,
+        "value": 22
+      },
+      {
+        "year": 2010,
+        "value": 28
+      },
+      {
+        "year": 2015,
+        "value": 33
+      },
+      {
+        "year": 2020,
+        "value": 37
+      },
+      {
+        "year": 2023,
+        "value": 42
+      },
+      {
+        "year": 2026,
+        "value": 43
+      }
     ],
     "Swiss SL": [
-      {"year":1990,"value":8},  {"year":1995,"value":10},
-      {"year":2000,"value":13}, {"year":2005,"value":16},
-      {"year":2010,"value":19}, {"year":2015,"value":22},
-      {"year":2020,"value":25}, {"year":2023,"value":28},
-      {"year":2026,"value":28}
+      {
+        "year": 1990,
+        "value": 8
+      },
+      {
+        "year": 1995,
+        "value": 12
+      },
+      {
+        "year": 2000,
+        "value": 16
+      },
+      {
+        "year": 2005,
+        "value": 20
+      },
+      {
+        "year": 2010,
+        "value": 24
+      },
+      {
+        "year": 2015,
+        "value": 27
+      },
+      {
+        "year": 2020,
+        "value": 30
+      },
+      {
+        "year": 2023,
+        "value": 33
+      },
+      {
+        "year": 2026,
+        "value": 35
+      }
     ]
   },
-
   "jersey_price_history": {
-    "_note": "Prix maillot domicile adulte officiel (€). Sources: relevés boutiques officielles + JD Sports/Decathlon.",
+    "_note": "Prix maillot domicile adulte officiel (€). Sources: relevés boutiques officielles clubs, JD Sports prix archive, Fanatics.com.",
     "Premier League": [
-      {"year":1990,"value":20}, {"year":1995,"value":32},
-      {"year":2000,"value":48}, {"year":2005,"value":58},
-      {"year":2010,"value":65}, {"year":2015,"value":75},
-      {"year":2020,"value":85}, {"year":2023,"value":97},
-      {"year":2026,"value":97}
+      {
+        "year": 1990,
+        "value": 23
+      },
+      {
+        "year": 1995,
+        "value": 36
+      },
+      {
+        "year": 2000,
+        "value": 46
+      },
+      {
+        "year": 2005,
+        "value": 58
+      },
+      {
+        "year": 2010,
+        "value": 64
+      },
+      {
+        "year": 2015,
+        "value": 75
+      },
+      {
+        "year": 2020,
+        "value": 87
+      },
+      {
+        "year": 2023,
+        "value": 95
+      },
+      {
+        "year": 2026,
+        "value": 100
+      }
     ],
     "La Liga": [
-      {"year":1990,"value":18}, {"year":1995,"value":28},
-      {"year":2000,"value":42}, {"year":2005,"value":52},
-      {"year":2010,"value":60}, {"year":2015,"value":70},
-      {"year":2020,"value":78}, {"year":2023,"value":85},
-      {"year":2026,"value":85}
+      {
+        "year": 1990,
+        "value": 18
+      },
+      {
+        "year": 1995,
+        "value": 28
+      },
+      {
+        "year": 2000,
+        "value": 40
+      },
+      {
+        "year": 2005,
+        "value": 52
+      },
+      {
+        "year": 2010,
+        "value": 60
+      },
+      {
+        "year": 2015,
+        "value": 70
+      },
+      {
+        "year": 2020,
+        "value": 80
+      },
+      {
+        "year": 2023,
+        "value": 90
+      },
+      {
+        "year": 2026,
+        "value": 95
+      }
     ],
     "Bundesliga": [
-      {"year":1990,"value":16}, {"year":1995,"value":25},
-      {"year":2000,"value":36}, {"year":2005,"value":45},
-      {"year":2010,"value":54}, {"year":2015,"value":62},
-      {"year":2020,"value":70}, {"year":2023,"value":75},
-      {"year":2026,"value":75}
+      {
+        "year": 1990,
+        "value": 16
+      },
+      {
+        "year": 1995,
+        "value": 26
+      },
+      {
+        "year": 2000,
+        "value": 38
+      },
+      {
+        "year": 2005,
+        "value": 48
+      },
+      {
+        "year": 2010,
+        "value": 58
+      },
+      {
+        "year": 2015,
+        "value": 68
+      },
+      {
+        "year": 2020,
+        "value": 75
+      },
+      {
+        "year": 2023,
+        "value": 80
+      },
+      {
+        "year": 2026,
+        "value": 85
+      }
     ],
     "Serie A": [
-      {"year":1990,"value":18}, {"year":1995,"value":28},
-      {"year":2000,"value":42}, {"year":2005,"value":52},
-      {"year":2010,"value":58}, {"year":2015,"value":65},
-      {"year":2020,"value":72}, {"year":2023,"value":79},
-      {"year":2026,"value":79}
+      {
+        "year": 1990,
+        "value": 18
+      },
+      {
+        "year": 1995,
+        "value": 28
+      },
+      {
+        "year": 2000,
+        "value": 40
+      },
+      {
+        "year": 2005,
+        "value": 52
+      },
+      {
+        "year": 2010,
+        "value": 60
+      },
+      {
+        "year": 2015,
+        "value": 68
+      },
+      {
+        "year": 2020,
+        "value": 76
+      },
+      {
+        "year": 2023,
+        "value": 85
+      },
+      {
+        "year": 2026,
+        "value": 90
+      }
     ],
     "Ligue 1": [
-      {"year":1990,"value":16}, {"year":1995,"value":24},
-      {"year":2000,"value":36}, {"year":2005,"value":46},
-      {"year":2010,"value":54}, {"year":2015,"value":60},
-      {"year":2020,"value":65}, {"year":2023,"value":71},
-      {"year":2026,"value":71}
+      {
+        "year": 1990,
+        "value": 15
+      },
+      {
+        "year": 1995,
+        "value": 24
+      },
+      {
+        "year": 2000,
+        "value": 35
+      },
+      {
+        "year": 2005,
+        "value": 46
+      },
+      {
+        "year": 2010,
+        "value": 55
+      },
+      {
+        "year": 2015,
+        "value": 63
+      },
+      {
+        "year": 2020,
+        "value": 70
+      },
+      {
+        "year": 2023,
+        "value": 78
+      },
+      {
+        "year": 2026,
+        "value": 82
+      }
     ],
     "Swiss SL": [
-      {"year":1990,"value":15}, {"year":1995,"value":20},
-      {"year":2000,"value":28}, {"year":2005,"value":34},
-      {"year":2010,"value":38}, {"year":2015,"value":42},
-      {"year":2020,"value":45}, {"year":2023,"value":48},
-      {"year":2026,"value":48}
+      {
+        "year": 1990,
+        "value": 14
+      },
+      {
+        "year": 1995,
+        "value": 20
+      },
+      {
+        "year": 2000,
+        "value": 28
+      },
+      {
+        "year": 2005,
+        "value": 35
+      },
+      {
+        "year": 2010,
+        "value": 42
+      },
+      {
+        "year": 2015,
+        "value": 48
+      },
+      {
+        "year": 2020,
+        "value": 52
+      },
+      {
+        "year": 2023,
+        "value": 56
+      },
+      {
+        "year": 2026,
+        "value": 58
+      }
     ]
   },
-
   "timeline": [
     {
       "year": 1992,
       "title": "Naissance de la Premier League",
       "body": "Les 22 clubs anglais quittent la Football League. BSkyB signe 304 M£ de droits TV sur 5 ans. Le football pro entre dans l'ère télévisée.",
-      "tag": "clubs", "tl": "Clubs",
+      "tag": "clubs",
+      "tl": "Clubs",
       "source": "The Guardian, 1992 — Premier League founding documents"
     },
     {
       "year": 1995,
       "title": "L'arrêt Bosman",
       "body": "La CJUE libéralise les transferts. Les joueurs peuvent changer de club gratuitement en fin de contrat. Les salaires explosent, les clubs s'endettent.",
-      "tag": "global", "tl": "Réglementation",
+      "tag": "global",
+      "tl": "Réglementation",
       "source": "CJCE, affaire C-415/93, 15 décembre 1995"
     },
     {
       "year": 1999,
       "title": "Le premier milliard de droits TV",
       "body": "La Premier League franchit le milliard de livres pour un cycle TV. Pour les fans anglais, les billets augmentent de 45% en cinq ans.",
-      "tag": "fans", "tl": "Fans",
+      "tag": "fans",
+      "tl": "Fans",
       "source": "Deloitte Annual Review of Football Finance 2000"
     },
     {
       "year": 2004,
       "title": "L'ère des propriétaires milliardaires",
       "body": "Abramovich rachète Chelsea pour 140 M£. Les transferts records deviennent un outil de marketing autant qu'un investissement sportif.",
-      "tag": "clubs", "tl": "Clubs",
+      "tag": "clubs",
+      "tl": "Clubs",
       "source": "BBC Sport, juillet 2003"
     },
     {
       "year": 2011,
       "title": "Qatar rachète le PSG",
       "body": "QSI acquiert le PSG pour 70 M€. En 5 ans : Neymar (222 M€), Mbappé (180 M€). La Ligue 1 devient vitrine d'un soft power national.",
-      "tag": "global", "tl": "Mondial",
+      "tag": "global",
+      "tl": "Mondial",
       "source": "L'Équipe / LFP communiqué officiel, juin 2011"
     },
     {
       "year": 2013,
       "title": "Le billet à 100€ devient normal",
       "body": "En Premier League, le billet moyen dépasse 100€. À Arsenal, certains abonnements dépassent 2 000£/saison. Le fan populaire est progressivement exclu.",
-      "tag": "fans", "tl": "Fans",
+      "tag": "fans",
+      "tl": "Fans",
       "source": "Football Supporters Europe — Fan Cost Index 2013"
     },
     {
       "year": 2016,
       "title": "5 milliards £ pour 3 ans",
       "body": "La PL vend ses droits domestiques 5,14 Mrd£. Chaque club reçoit 100 M£/saison minimum. Le gouffre avec le reste de l'Europe se creuse.",
-      "tag": "clubs", "tl": "Clubs",
+      "tag": "clubs",
+      "tl": "Clubs",
       "source": "Premier League communiqué officiel, février 2015"
     },
     {
       "year": 2021,
       "title": "La tentative de Super League",
       "body": "12 clubs européens annoncent une Super League fermée. Tollé général, échec en 48h. L'appétit des propriétaires est révélé au grand jour.",
-      "tag": "global", "tl": "Crise",
+      "tag": "global",
+      "tl": "Crise",
       "source": "UEFA / communiqués clubs, avril 2021"
     },
     {
       "year": 2024,
       "title": "Le maillot à 100€ : la norme",
       "body": "Le maillot officiel PL dépasse 97€. Les clubs sortent 3 à 4 kits par saison. Le merchandising représente jusqu'à 15% des revenus d'un grand club.",
-      "tag": "fans", "tl": "Fans",
+      "tag": "fans",
+      "tl": "Fans",
       "source": "Deloitte Football Money League 2024"
     }
   ]

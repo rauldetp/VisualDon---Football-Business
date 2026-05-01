@@ -271,16 +271,35 @@ function initTimelineCarousel() {
     card.style.transform = `translate(-50%, -50%) rotateY(${i * (360 / total)}deg) translateZ(${radius}px)`;
   });
 
+  // Images indexées sur le contenu exact de chaque slide store.TIMELINE (ordre identique)
+  // [0] 1992 — Naissance PL : stade de football plein, tribunes anglaises
+  // [1] 1995 — Arrêt Bosman : contrat / papiers / signature juridique
+  // [2] 1999 — Premier milliard droits TV : caméras TV au bord du terrain
+  // [3] 2004 — Propriétaires milliardaires (Abramovich/Chelsea) : stade Chelsea / football professionnel nuit
+  // [4] 2011 — Qatar rachète le PSG : Paris / architecture moderne + football
+  // [5] 2013 — Billet à 100€ : supporters en tribunes / foule stade
+  // [6] 2016 — 5 milliards £ : billets / argent / économie football
+  // [7] 2021 — Super League : supporters avec banderoles / protestation fans
+  // [8] 2024 — Maillot à 100€ : boutique officielle / maillots en rayons
   const images = [
-    'https://images.unsplash.com/photo-1507925921958-8a62f3c3d94b?auto=format&fit=crop&w=900&q=80',
-    'https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=900&q=80',
-    'https://images.unsplash.com/photo-1517487881594-2787fef5ebf7?auto=format&fit=crop&w=900&q=80',
-    'https://images.unsplash.com/photo-1542736667-069246bdbc64?auto=format&fit=crop&w=900&q=80',
-    'https://images.unsplash.com/photo-1517487881594-2787fef5ebf7?auto=format&fit=crop&w=900&q=80',
-    'https://images.unsplash.com/photo-1509395176047-4a66953fd231?auto=format&fit=crop&w=900&q=80',
-    'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80',
-    'https://images.unsplash.com/photo-1483721310020-03333e577078?auto=format&fit=crop&w=900&q=80',
-    'https://images.unsplash.com/photo-1508953691664-f62e5b748c7a?auto=format&fit=crop&w=900&q=80'
+    // 1992 — Naissance Premier League : grand stade football
+    'https://images.unsplash.com/photo-1553778263-73a83bab9b0c?auto=format&fit=crop&w=900&q=80',
+    // 1995 — Arrêt Bosman : stylo + contrat, signature
+    'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=900&q=80',
+    // 1999 — Premier milliard droits TV : caméras broadcast
+    'https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=900&q=80',
+    // 2004 — Ère propriétaires milliardaires : stade sous les projecteurs nuit
+    'https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=900&q=80',
+    // 2011 — Qatar/PSG : Tour Eiffel Paris
+    'https://images.unsplash.com/photo-1499856871958-5b9627545d1a?auto=format&fit=crop&w=900&q=80',
+    // 2013 — Billet à 100€ : foule supporters dans les tribunes
+    'https://images.unsplash.com/photo-1489944440615-453fc2b6a9a9?auto=format&fit=crop&w=900&q=80',
+    // 2016 — 5 milliards £ : billets de banque / argent / finance
+    'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=900&q=80',
+    // 2021 — Super League : supporters avec écharpes, passion des fans
+    'https://images.unsplash.com/photo-1508098682722-e99c643e7485?auto=format&fit=crop&w=900&q=80',
+    // 2024 — Maillot à 100€ : maillots de football en vente
+    'https://images.unsplash.com/photo-1577223625816-7546f13df25d?auto=format&fit=crop&w=900&q=80'
   ];
 
   galleryOuter.querySelectorAll('.gallery_box_in').forEach((card, idx) => {
