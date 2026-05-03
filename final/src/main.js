@@ -6,12 +6,11 @@ import './css/styles.css';
 import { store }              from './js/store.js';
 import { loadData, initData } from './js/data.js';
 import { onEnter, animCount, mkSelector } from './js/utils.js';
-import { mkRadar, mkAccessChart }         from './js/charts.js';
-import { mkMap }                          from './js/map.js';
+import { mkAccessChart, mkCorrelationChart } from './js/charts.js';
+import { mkMap }                             from './js/map.js';
 import {
   STEP_PX, getFanStats, getLeagueStats,
-  mkScrollBarChart, mkProgressDots, syncProgressDots,
-  buildFanLeftPanel, buildLeagueLeftPanel, mkScrollSelector
+  mkCircularBarPlot, mkProgressDots, syncProgressDots, mkScrollSelector
 } from './js/scroll.js';
 
 async function boot() {
@@ -26,22 +25,26 @@ function initApp() {
   const FAN_STATS    = getFanStats();
   const LEAGUE_STATS = getLeagueStats();
 
+  // ── Barre de progression ──────────────────────────────────────────────────
   const prog = document.getElementById('prog');
   window.addEventListener('scroll', () => {
     const s = window.scrollY, t = document.body.scrollHeight - window.innerHeight;
     prog.style.width = `${t > 0 ? (s / t) * 100 : 0}%`;
   });
 
+  // ── Nav ───────────────────────────────────────────────────────────────────
   const nav = document.querySelector('.nav');
   window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 46));
 
-  const ro = new IntersectionObserver(e => {
+  // ── Reveal ────────────────────────────────────────────────────────────────
+  const revealObs = new IntersectionObserver(e => {
     e.forEach(x => { if (x.isIntersecting) x.target.classList.add('in'); });
   }, { threshold: .05 });
   document.querySelectorAll('.chart-block,.section-head,.fan-card,.swiss-card').forEach(el => {
-    el.classList.add('rev'); ro.observe(el);
+    el.classList.add('rev'); revealObs.observe(el);
   });
 
+  // ── Hero stats ────────────────────────────────────────────────────────────
   onEnter(document.querySelector('.hero-stats-strip'), () => {
     document.querySelectorAll('.hero-stat-value[data-count]').forEach(el => {
       animCount(el, parseInt(el.dataset.count), el.dataset.suffix || '', el.dataset.prefix || '');
@@ -50,168 +53,224 @@ function initApp() {
 
   initTimelineCarousel();
 
-  /* ---- FAN ---- */
-  const fanScrollActive = new Set(Object.keys(store.LEAGUES).filter(l => l !== 'Swiss SL'));
+  /* ──────────────────────────────────────────────────────────────────────────
+     ÉTAT PARTAGÉ DES CHAMPIONNATS ACTIFS
+     Mode normal  : un seul actif (Set de taille 1)
+     Mode suisse  : tous actifs (Set de taille 6)
+  ──────────────────────────────────────────────────────────────────────────── */
+  const ALL_LEAGUES_NORMAL = ['Premier League', 'La Liga', 'Bundesliga', 'Serie A', 'Ligue 1'];
+  const ALL_LEAGUES_SWISS  = ['Premier League', 'La Liga', 'Bundesliga', 'Serie A', 'Ligue 1', 'Swiss SL'];
+
+  // Sets indépendants pour fan et league (peuvent diverger si l'user filtre)
+  const fanActive    = new Set(['Premier League']);
+  const leagueActive = new Set(['Premier League']);
+
+  /* ──────────────────────────────────────────────────────────────────────────
+     SECTION FAN
+  ──────────────────────────────────────────────────────────────────────────── */
   let fanStatIdx = 0;
 
-  function updateFanSection() {
+  function updateFanChart() {
     const stat = FAN_STATS[fanStatIdx];
     const tEl  = document.getElementById('fan-chart-title');
     const dEl  = document.getElementById('fan-chart-desc');
     if (tEl) { tEl.style.opacity = 0; setTimeout(() => { tEl.textContent = stat.title; tEl.style.opacity = 1; }, 180); }
     if (dEl) { dEl.style.opacity = 0; setTimeout(() => { dEl.textContent = stat.desc;  dEl.style.opacity = 1; }, 180); }
-    mkScrollBarChart('fan-bar-chart', fanScrollActive, stat, 2026);
-    buildFanLeftPanel('fan-scroll-left', fanScrollActive);
+    mkCircularBarPlot('fan-bar-chart', fanActive, stat);
     syncProgressDots('fan-progress-dots', fanStatIdx);
   }
 
-  mkScrollSelector('fan-scroll-selector', fanScrollActive, () => updateFanSection());
+  function updateFanSelector() {
+    mkScrollSelector('fan-scroll-selector', fanActive, () => {
+      updateFanSelector();
+      updateFanChart();
+    });
+  }
+
   mkProgressDots('fan-progress-dots', FAN_STATS, 0, i => {
     fanStatIdx = i;
     const outer = document.getElementById('fan-sticky-outer');
-    if (outer) { const top = outer.getBoundingClientRect().top + window.scrollY + i * STEP_PX + 10; window.scrollTo({ top, behavior: 'smooth' }); }
-    updateFanSection();
+    if (outer) {
+      const top = outer.getBoundingClientRect().top + window.scrollY + i * STEP_PX + 10;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+    updateFanChart();
   });
 
-  const fanOuterEl  = document.getElementById('fan-sticky-outer');
   const fanSpacerEl = document.getElementById('fan-scroll-spacer');
   if (fanSpacerEl) fanSpacerEl.style.height = (FAN_STATS.length * STEP_PX + 200) + 'px';
-  requestAnimationFrame(() => requestAnimationFrame(() => updateFanSection()));
 
+  const fanOuterEl = document.getElementById('fan-sticky-outer');
   window.addEventListener('scroll', () => {
     if (!fanOuterEl) return;
     const scrolled = -fanOuterEl.getBoundingClientRect().top;
     if (scrolled < 0) return;
     const newIdx = Math.min(FAN_STATS.length - 1, Math.max(0, Math.floor(scrolled / STEP_PX)));
-    if (newIdx !== fanStatIdx) { fanStatIdx = newIdx; updateFanSection(); }
+    if (newIdx !== fanStatIdx) { fanStatIdx = newIdx; updateFanChart(); }
     syncProgressDots('fan-progress-dots', fanStatIdx);
   }, { passive: true });
 
-  /* ---- LEAGUE ---- */
-  const leagueScrollActive = new Set(Object.keys(store.LEAGUES).filter(l => l !== 'Swiss SL'));
+  updateFanSelector();
+  requestAnimationFrame(() => requestAnimationFrame(() => updateFanChart()));
+
+  /* ──────────────────────────────────────────────────────────────────────────
+     SECTION LEAGUE
+  ──────────────────────────────────────────────────────────────────────────── */
   let leagueStatIdx = 0;
 
-  function updateLeagueSection() {
+  function updateLeagueChart() {
     const stat = LEAGUE_STATS[leagueStatIdx];
     const tEl  = document.getElementById('league-chart-title');
     const dEl  = document.getElementById('league-chart-desc');
     if (tEl) { tEl.style.opacity = 0; setTimeout(() => { tEl.textContent = stat.title; tEl.style.opacity = 1; }, 180); }
     if (dEl) { dEl.style.opacity = 0; setTimeout(() => { dEl.textContent = stat.desc;  dEl.style.opacity = 1; }, 180); }
-    mkScrollBarChart('league-bar-chart', leagueScrollActive, stat, 2026);
-    buildLeagueLeftPanel('league-scroll-left', leagueScrollActive);
+    mkCircularBarPlot('league-bar-chart', leagueActive, stat);
     syncProgressDots('league-progress-dots', leagueStatIdx);
   }
 
-  mkScrollSelector('league-scroll-selector', leagueScrollActive, () => updateLeagueSection());
+  function updateLeagueSelector() {
+    mkScrollSelector('league-scroll-selector', leagueActive, () => {
+      updateLeagueSelector();
+      updateLeagueChart();
+    });
+  }
+
   mkProgressDots('league-progress-dots', LEAGUE_STATS, 0, i => {
     leagueStatIdx = i;
     const outer = document.getElementById('league-sticky-outer');
-    if (outer) { const top = outer.getBoundingClientRect().top + window.scrollY + i * STEP_PX + 10; window.scrollTo({ top, behavior: 'smooth' }); }
-    updateLeagueSection();
+    if (outer) {
+      const top = outer.getBoundingClientRect().top + window.scrollY + i * STEP_PX + 10;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+    updateLeagueChart();
   });
 
-  const leagueOuterEl  = document.getElementById('league-sticky-outer');
   const leagueSpacerEl = document.getElementById('league-scroll-spacer');
   if (leagueSpacerEl) leagueSpacerEl.style.height = (LEAGUE_STATS.length * STEP_PX + 200) + 'px';
-  requestAnimationFrame(() => requestAnimationFrame(() => updateLeagueSection()));
 
+  const leagueOuterEl = document.getElementById('league-sticky-outer');
   window.addEventListener('scroll', () => {
     if (!leagueOuterEl) return;
     const scrolled = -leagueOuterEl.getBoundingClientRect().top;
     if (scrolled < 0) return;
     const newIdx = Math.min(LEAGUE_STATS.length - 1, Math.max(0, Math.floor(scrolled / STEP_PX)));
-    if (newIdx !== leagueStatIdx) { leagueStatIdx = newIdx; updateLeagueSection(); }
+    if (newIdx !== leagueStatIdx) { leagueStatIdx = newIdx; updateLeagueChart(); }
     syncProgressDots('league-progress-dots', leagueStatIdx);
   }, { passive: true });
 
-  /* ---- RADAR ---- */
-  const cmpActive = new Set(Object.keys(store.LEAGUES).filter(l => l !== 'Swiss SL'));
-  let radarCtrl   = null;
+  updateLeagueSelector();
+  requestAnimationFrame(() => requestAnimationFrame(() => updateLeagueChart()));
 
-  function syncRadar(rebuild) {
-    if (rebuild || !radarCtrl) {
-      radarCtrl = mkRadar(cmpActive, doRebuild => syncRadar(doRebuild !== false));
-    } else {
-      radarCtrl.syncPolys();
-    }
-    document.querySelectorAll('#compare-selector .cpill-s').forEach(btn => {
-      const name = btn.dataset.league; if (!name) return;
-      const info = store.LEAGUES[name]; if (!info) return;
-      const on   = cmpActive.has(name);
-      btn.classList.toggle('on', on);
-      btn.style.color           = on ? '#fff' : info.color;
-      btn.style.backgroundColor = on ? info.color : 'transparent';
-    });
-  }
-
-  /* ---- ACCESS ---- */
+  /* ──────────────────────────────────────────────────────────────────────────
+     ACCESSIBILITÉ
+  ──────────────────────────────────────────────────────────────────────────── */
   const accessActive = new Set(['Premier League', 'La Liga', 'Bundesliga', 'Serie A', 'Ligue 1']);
   mkSelector('access-selector', accessActive, () => mkAccessChart(accessActive));
-  onEnter(document.getElementById('section-access') || document.body, () => mkAccessChart(accessActive), 0.1);
+  onEnter(
+    document.getElementById('section-access') || document.body,
+    () => mkAccessChart(accessActive),
+    0.1
+  );
 
-  /* ---- RADAR SELECTOR ---- */
-  function buildCmpSelector() {
-    const sel = document.getElementById('compare-selector');
-    if (!sel) return;
-    sel.innerHTML = '<div class="cs-label">\uD83C\uDF0D S\u00e9lectionner les ligues \u00e0 comparer</div>';
-    Object.entries(store.LEAGUES).filter(([n]) => store.swissMode || n !== 'Swiss SL').forEach(([name, info]) => {
-      const on = cmpActive.has(name);
-      const b  = document.createElement('button');
-      b.className           = 'cpill-s' + (on ? ' on' : '');
-      b.dataset.league      = name;
-      b.style.borderColor   = info.color;
-      b.style.color         = on ? '#fff' : info.color;
-      b.style.backgroundColor = on ? info.color : 'transparent';
-      b.innerHTML = `<span>${info.flag}</span>${name}`;
-      b.addEventListener('click', () => {
-        if (cmpActive.has(name) && cmpActive.size > 1) cmpActive.delete(name);
-        else if (!cmpActive.has(name)) cmpActive.add(name);
-        syncRadar(false); buildCmpSelector();
+  /* ──────────────────────────────────────────────────────────────────────────
+     CORRÉLATION
+  ──────────────────────────────────────────────────────────────────────────── */
+  let corrActiveLg = 'Premier League';
+
+  function updateCorrSelector() {
+    const c = document.getElementById('corr-selector');
+    if (!c) return;
+    c.innerHTML = '<div class="cs-label">🌍 Sélectionner un championnat</div>';
+    Object.entries(store.LEAGUES)
+      .filter(([n]) => store.swissMode || n !== 'Swiss SL')
+      .forEach(([name, info]) => {
+        const b  = document.createElement('button');
+        const on = corrActiveLg === name;
+        b.className             = 'cpill-s' + (on ? ' on' : '');
+        b.style.borderColor     = info.color;
+        b.style.color           = on ? '#fff' : info.color;
+        b.style.backgroundColor = on ? info.color : 'transparent';
+        b.innerHTML = `<span>${info.flag}</span>${name}`;
+        b.addEventListener('click', () => {
+          corrActiveLg = name;
+          updateCorrSelector();
+          updateCorrChart();
+        });
+        c.appendChild(b);
       });
-      sel.appendChild(b);
-    });
   }
-  buildCmpSelector();
-  syncRadar(true);
 
-  /* ---- MAP ---- */
+  function updateCorrChart() {
+    const chartEl = document.getElementById('corr-chart');
+    if (!chartEl) return;
+    if (chartEl.offsetWidth < 10 || chartEl.offsetHeight < 10) {
+      requestAnimationFrame(() => updateCorrChart());
+      return;
+    }
+    mkCorrelationChart('corr-chart', corrActiveLg);
+  }
+
+  updateCorrSelector();
+  onEnter(
+    document.getElementById('section-compare') || document.body,
+    () => updateCorrChart(),
+    0.1
+  );
+
+  /* ──────────────────────────────────────────────────────────────────────────
+     GLOBE
+  ──────────────────────────────────────────────────────────────────────────── */
   mkMap();
 
-  /* ---- SWISS MODE ---- */
-  const ALL_ACTIVE_SETS = [
-    { set: fanScrollActive,    rebuild: () => { mkScrollSelector('fan-scroll-selector',    fanScrollActive,    () => updateFanSection());    updateFanSection();    } },
-    { set: leagueScrollActive, rebuild: () => { mkScrollSelector('league-scroll-selector', leagueScrollActive, () => updateLeagueSection()); updateLeagueSection(); } },
-    { set: accessActive,       rebuild: () => { mkSelector('access-selector', accessActive, () => mkAccessChart(accessActive)); mkAccessChart(accessActive); } },
-    { set: cmpActive,          rebuild: () => { buildCmpSelector(); syncRadar(true); } },
-  ];
-
+  /* ──────────────────────────────────────────────────────────────────────────
+     SWISS MODE
+  ──────────────────────────────────────────────────────────────────────────── */
   function applySwissMode(on) {
     store.swissMode = on;
-    ALL_ACTIVE_SETS.forEach(({ set, rebuild }) => {
-      if (on) { set.clear(); set.add('Swiss SL'); }
-      else { set.delete('Swiss SL'); ['Premier League', 'La Liga', 'Bundesliga', 'Serie A', 'Ligue 1'].forEach(l => set.add(l)); }
-      rebuild();
-    });
-    const swissIso = store.COUNTRIES.Switzerland?.iso;
-    if (swissIso) {
-      d3.selectAll('path.cp').filter(d => String(d.id) === swissIso)
-        .attr('fill',   on ? `${store.COUNTRIES.Switzerland.color}44` : '#c5dbbf')
-        .attr('stroke', on ? store.COUNTRIES.Switzerland.color : 'rgba(155,185,150,.45)')
-        .attr('stroke-width', on ? 1.5 : 0.4)
-        .style('cursor', on ? 'pointer' : 'default');
+
+    if (on) {
+      // Mode suisse : tous les championnats actifs + multi-select
+      fanActive.clear();
+      ALL_LEAGUES_SWISS.forEach(l => fanActive.add(l));
+      leagueActive.clear();
+      ALL_LEAGUES_SWISS.forEach(l => leagueActive.add(l));
+
+      // Corrélation : Swiss SL disponible
+      corrActiveLg = 'Swiss SL';
+    } else {
+      // Mode normal : Premier League uniquement + sélection exclusive
+      fanActive.clear();
+      fanActive.add('Premier League');
+      leagueActive.clear();
+      leagueActive.add('Premier League');
+
+      corrActiveLg = 'Premier League';
     }
+
+    // Rebuild tous les sélecteurs et graphiques
+    updateFanSelector();    updateFanChart();
+    updateLeagueSelector(); updateLeagueChart();
+    updateCorrSelector();   updateCorrChart();
+
+    // Access chart
+    const accessSet = on
+      ? new Set(ALL_LEAGUES_SWISS)
+      : new Set(ALL_LEAGUES_NORMAL);
+    accessActive.clear();
+    accessSet.forEach(l => accessActive.add(l));
+    mkSelector('access-selector', accessActive, () => mkAccessChart(accessActive));
+    mkAccessChart(accessActive);
+
+    // Carte
     if (window._rebuildMapPills) window._rebuildMapPills();
   }
 
-  function zoomToSwitzerlandOnMap() {
+  function zoomToSwitzerlandOnGlobe() {
     const mapSection = document.getElementById('map-section');
-    if (mapSection) {
-      mapSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      setTimeout(() => {
-        const pill = document.querySelector(".cpill-map[data-c='Switzerland']");
-        if (pill) pill.click();
-      }, 900);
-    }
+    if (mapSection) mapSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    setTimeout(() => {
+      if (window._openGlobeCountry) window._openGlobeCountry('Switzerland');
+    }, 900);
   }
 
   const swissBtn = document.getElementById('swiss-mode-btn');
@@ -221,14 +280,12 @@ function initApp() {
       swissBtn.setAttribute('aria-pressed', nowOn ? 'true' : 'false');
       applySwissMode(nowOn);
       if (nowOn) {
-        setTimeout(() => zoomToSwitzerlandOnMap(), 200);
+        setTimeout(() => zoomToSwitzerlandOnGlobe(), 200);
       } else {
-        setTimeout(() => {
-          const rst = document.querySelector('.cpill-map:not([data-c])');
-          if (rst) rst.click();
-          const mapSection = document.getElementById('map-section');
-          if (mapSection) mapSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 100);
+        const panel = document.getElementById('globe-panel');
+        if (panel) panel.classList.remove('open');
+        const mapSection = document.getElementById('map-section');
+        if (mapSection) mapSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     });
   }
@@ -236,6 +293,9 @@ function initApp() {
 
 boot();
 
+/* ──────────────────────────────────────────────────────────────────────────────
+   TIMELINE CAROUSEL
+──────────────────────────────────────────────────────────────────────────────── */
 function initTimelineCarousel() {
   const boxOuter = document.querySelector('.gallery_box_outer');
   if (!boxOuter || !store.TIMELINE?.length) return;
@@ -243,7 +303,7 @@ function initTimelineCarousel() {
   const total = store.TIMELINE.length;
 
   const cards = [];
-  store.TIMELINE.forEach((item, i) => {
+  store.TIMELINE.forEach(item => {
     const card = document.createElement('div');
     card.className = 'gallery_box_in';
     const body = typeof item.body === 'string' ? item.body.replace(/<[^>]+>/g, ' ') : '';
@@ -258,70 +318,50 @@ function initTimelineCarousel() {
     boxOuter.appendChild(card);
   });
 
-  const galleryBox = document.querySelector('.gallery_box');
+  const galleryBox   = document.querySelector('.gallery_box');
   const galleryOuter = document.querySelector('.gallery_box_outer');
   if (!galleryBox || !galleryOuter) return;
 
   const referenceCard = cards[0] || null;
-  const cardWidth = referenceCard ? Math.round(referenceCard.getBoundingClientRect().width) : 300;
-  const targetRadius = Math.max(360, Math.round((cardWidth * 1.05) / (2 * Math.sin(Math.PI / total))));
-  const radius = Math.min(targetRadius, 620);
+  const cardWidth     = referenceCard ? Math.round(referenceCard.getBoundingClientRect().width) : 300;
+  const targetRadius  = Math.max(360, Math.round((cardWidth * 1.05) / (2 * Math.sin(Math.PI / total))));
+  const radius        = Math.min(targetRadius, 620);
 
   cards.forEach((card, i) => {
     card.style.transform = `translate(-50%, -50%) rotateY(${i * (360 / total)}deg) translateZ(${radius}px)`;
   });
 
-  // Images indexées sur le contenu exact de chaque slide store.TIMELINE (ordre identique)
-  // [0] 1992 — Naissance PL : stade de football plein, tribunes anglaises
-  // [1] 1995 — Arrêt Bosman : contrat / papiers / signature juridique
-  // [2] 1999 — Premier milliard droits TV : caméras TV au bord du terrain
-  // [3] 2004 — Propriétaires milliardaires (Abramovich/Chelsea) : stade Chelsea / football professionnel nuit
-  // [4] 2011 — Qatar rachète le PSG : Paris / architecture moderne + football
-  // [5] 2013 — Billet à 100€ : supporters en tribunes / foule stade
-  // [6] 2016 — 5 milliards £ : billets / argent / économie football
-  // [7] 2021 — Super League : supporters avec banderoles / protestation fans
-  // [8] 2024 — Maillot à 100€ : boutique officielle / maillots en rayons
   const images = [
-    // 1992 — Naissance Premier League : grand stade football
-    'https://images.unsplash.com/photo-1553778263-73a83bab9b0c?auto=format&fit=crop&w=900&q=80',
-    // 1995 — Arrêt Bosman : stylo + contrat, signature
-    'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=900&q=80',
-    // 1999 — Premier milliard droits TV : caméras broadcast
-    'https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=900&q=80',
-    // 2004 — Ère propriétaires milliardaires : stade sous les projecteurs nuit
-    'https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=900&q=80',
-    // 2011 — Qatar/PSG : Tour Eiffel Paris
-    'https://images.unsplash.com/photo-1499856871958-5b9627545d1a?auto=format&fit=crop&w=900&q=80',
-    // 2013 — Billet à 100€ : foule supporters dans les tribunes
-    'https://images.unsplash.com/photo-1489944440615-453fc2b6a9a9?auto=format&fit=crop&w=900&q=80',
-    // 2016 — 5 milliards £ : billets de banque / argent / finance
-    'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=900&q=80',
-    // 2021 — Super League : supporters avec écharpes, passion des fans
-    'https://images.unsplash.com/photo-1508098682722-e99c643e7485?auto=format&fit=crop&w=900&q=80',
-    // 2024 — Maillot à 100€ : maillots de football en vente
-    'https://images.unsplash.com/photo-1577223625816-7546f13df25d?auto=format&fit=crop&w=900&q=80'
+    'https://images.unsplash.com/photo-1507925921958-8a62f3c3d94b?auto=format&fit=crop&w=900&q=80',
+    'https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=900&q=80',
+    'https://images.unsplash.com/photo-1517487881594-2787fef5ebf7?auto=format&fit=crop&w=900&q=80',
+    'https://images.unsplash.com/photo-1542736667-069246bdbc64?auto=format&fit=crop&w=900&q=80',
+    'https://images.unsplash.com/photo-1509395176047-4a66953fd231?auto=format&fit=crop&w=900&q=80',
+    'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80',
+    'https://images.unsplash.com/photo-1483721310020-03333e577078?auto=format&fit=crop&w=900&q=80',
+    'https://images.unsplash.com/photo-1508953691664-f62e5b748c7a?auto=format&fit=crop&w=900&q=80',
   ];
 
   galleryOuter.querySelectorAll('.gallery_box_in').forEach((card, idx) => {
     card.style.backgroundImage = `linear-gradient(rgba(0,0,0,.2), rgba(0,0,0,.45)), url('${images[idx % images.length]}')`;
   });
 
-  const totalCards = galleryOuter.querySelectorAll('.gallery_box_in').length || 1;
-  const snapConfig = totalCards > 1 ? { snapTo: 1 / (totalCards - 1), duration: 0.28, ease: 'power1.out' } : false;
+  const totalCards    = galleryOuter.querySelectorAll('.gallery_box_in').length || 1;
+  const snapConfig    = totalCards > 1 ? { snapTo: 1 / (totalCards - 1), duration: 0.28, ease: 'power1.out' } : false;
   const visibleHeight = Math.max(galleryBox.offsetHeight, window.innerHeight * 0.65);
-  const pinDistance = Math.round(visibleHeight + (totalCards - 1) * 28);
+  const pinDistance   = Math.round(visibleHeight + (totalCards - 1) * 28);
 
   gsap.timeline({
     scrollTrigger: {
-      trigger: galleryBox,
-      start: 'center center',
-      end: `+=${pinDistance}`,
-      scrub: 1,
-      pin: true,
-      pinSpacing: true,
+      trigger:       galleryBox,
+      start:         'center center',
+      end:           `+=${pinDistance}`,
+      scrub:         1,
+      pin:           true,
+      pinSpacing:    true,
       anticipatePin: 1,
-      snap: snapConfig,
-      markers: false
+      snap:          snapConfig,
+      markers:       false,
     }
   }).to('.gallery_box_outer', { rotateY: -360, ease: 'none' });
 }
