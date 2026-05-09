@@ -53,7 +53,7 @@
       "ticket": 70,
       "jersey": 100,
       "tvSub": 57,
-      "tvSubFull": 142,
+      "tvSubFull": 108,
       "wageBill": 3780,
       "sponsorRevenue": 2960,
       "stadiumRevenue": 1780,
@@ -71,18 +71,18 @@
       "clubs": 20,
       "pop": "47M",
       "club": "Real Madrid",
-      "tv": 1500,
+      "tv": 1000,
       "ticket": 54,
       "jersey": 95,
       "tvSub": 45,
-      "tvSubFull": 98,
+      "tvSubFull": 65,
       "wageBill": 2240,
       "sponsorRevenue": 1960,
       "stadiumRevenue": 1020,
       "merchandisingRevenue": 1740,
       "topClubRevenue": 831,
       "avgSalary": 26000,
-      "growth": "+2 400%",
+      "growth": "+1 500%",
       "desc": "La Liga a longtemps misé sur le duo Barça-Real. Sa popularité mondiale lui vaut des droits TV importants, mais la PL creuse l'écart depuis 2015.",
       "source_tv": "LaLiga rapport financier 2022-23"
     },
@@ -94,10 +94,10 @@
       "pop": "83M",
       "club": "Bayern Munich",
       "tv": 1100,
-      "ticket": 15,
+      "ticket": 26,
       "jersey": 85,
       "tvSub": 41,
-      "tvSubFull": 78,
+      "tvSubFull": 48,
       "wageBill": 1584,
       "sponsorRevenue": 1548,
       "stadiumRevenue": 1116,
@@ -115,18 +115,18 @@
       "clubs": 20,
       "pop": "60M",
       "club": "Inter Milan",
-      "tv": 900,
+      "tv": 700,
       "ticket": 54,
       "jersey": 90,
       "tvSub": 43,
-      "tvSubFull": 89,
+      "tvSubFull": 58,
       "wageBill": 1680,
       "sponsorRevenue": 1440,
       "stadiumRevenue": 760,
       "merchandisingRevenue": 1160,
       "topClubRevenue": 519,
       "avgSalary": 28000,
-      "growth": "+800%",
+      "growth": "+600%",
       "desc": "La Serie A a dominé les années 90. Elle a perdu du terrain depuis, mais reste une ligue historique avec des clubs emblématiques.",
       "source_tv": "Lega Serie A rapport annuel 2022-23"
     },
@@ -141,7 +141,7 @@
       "ticket": 43,
       "jersey": 82,
       "tvSub": 38,
-      "tvSubFull": 74,
+      "tvSubFull": 68,
       "wageBill": 1188,
       "sponsorRevenue": 1098,
       "stadiumRevenue": 576,
@@ -163,13 +163,13 @@
       "ticket": 35,
       "jersey": 58,
       "tvSub": 22,
-      "tvSubFull": 38,
+      "tvSubFull": 30,
       "wageBill": 100,
       "sponsorRevenue": 96,
-      "stadiumRevenue": 336,
+      "stadiumRevenue": 85,
       "merchandisingRevenue": 60,
-      "topClubRevenue": 48,
-      "avgSalary": 78000,
+      "topClubRevenue": 92,
+      "avgSalary": 95000,
       "growth": "+1 000%",
       "desc": "La Super League suisse reste dans une autre dimension économique. Mais les mêmes dynamiques d'inflation s'y installent progressivement.",
       "source_tv": "Swiss Football League rapport financier 2022-23"
@@ -258,23 +258,23 @@
       },
       {
         "year": 2016,
-        "value": 1430
+        "value": 880
       },
       {
         "year": 2019,
-        "value": 1500
+        "value": 1000
       },
       {
         "year": 2022,
-        "value": 1500
+        "value": 1000
       },
       {
         "year": 2025,
-        "value": 1500
+        "value": 1000
       },
       {
         "year": 2026,
-        "value": 1500
+        "value": 1000
       }
     ],
     "Bundesliga": [
@@ -354,19 +354,19 @@
       },
       {
         "year": 2019,
-        "value": 1350
+        "value": 1090
       },
       {
         "year": 2022,
-        "value": 1300
+        "value": 930
       },
       {
         "year": 2025,
-        "value": 900
+        "value": 700
       },
       {
         "year": 2026,
-        "value": 900
+        "value": 700
       }
     ],
     "Ligue 1": [
@@ -559,39 +559,39 @@
     "Bundesliga": [
       {
         "year": 1990,
-        "value": 6
-      },
-      {
-        "year": 1995,
         "value": 8
       },
       {
+        "year": 1995,
+        "value": 10
+      },
+      {
         "year": 2000,
-        "value": 9
-      },
-      {
-        "year": 2005,
-        "value": 11
-      },
-      {
-        "year": 2010,
         "value": 12
       },
       {
+        "year": 2005,
+        "value": 15
+      },
+      {
+        "year": 2010,
+        "value": 18
+      },
+      {
         "year": 2015,
-        "value": 13
+        "value": 21
       },
       {
         "year": 2020,
-        "value": 14
+        "value": 23
       },
       {
         "year": 2023,
-        "value": 15
+        "value": 25
       },
       {
         "year": 2026,
-        "value": 15
+        "value": 26
       }
     ],
     "Serie A": [

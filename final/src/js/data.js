@@ -94,7 +94,7 @@ export function initData(raw) {
   });
   store.TV_SUB = TV_SUB;
 
-  const tvSubFull2026 = { "Premier League":142,"La Liga":98,"Bundesliga":78,"Serie A":89,"Ligue 1":74,"Swiss SL":38 };
+  const tvSubFull2026 = { "Premier League":108,"La Liga":65,"Bundesliga":48,"Serie A":58,"Ligue 1":68,"Swiss SL":30 };
   const TV_SUB_FULL = {};
   Object.keys(raw.leagues).forEach(lg => {
     TV_SUB_FULL[lg] = YEARS_EXT.map(yr => ({
@@ -104,8 +104,8 @@ export function initData(raw) {
   });
   store.TV_SUB_FULL = TV_SUB_FULL;
 
-  const sal2023 = { "Premier League":33800,"La Liga":26000,"Bundesliga":40000,"Serie A":28000,"Ligue 1":30000,"Swiss SL":78000 };
-  const sal1980 = { "Premier League":10000,"La Liga":8000,"Bundesliga":14000,"Serie A":8000,"Ligue 1":9000,"Swiss SL":28000 };
+  const sal2023 = { "Premier League":40000,"La Liga":26000,"Bundesliga":44000,"Serie A":28000,"Ligue 1":37000,"Swiss SL":95000 };
+  const sal1980 = { "Premier League":12000,"La Liga":8000,"Bundesliga":14000,"Serie A":8000,"Ligue 1":9000,"Swiss SL":35000 };
   const AVG_SALARY_TS = {};
   Object.keys(raw.leagues).forEach(lg => {
     AVG_SALARY_TS[lg] = YEARS_EXT.map(yr => {
