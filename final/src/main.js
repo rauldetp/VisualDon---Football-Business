@@ -302,8 +302,25 @@ function initTimelineCarousel() {
   boxOuter.innerHTML = '';
   const total = store.TIMELINE.length;
 
+  // ── Ajoute le titre DANS le galleryBox pour qu'il soit pincé avec GSAP ──
+  const galleryBox = document.querySelector('.gallery_box');
+  if (galleryBox) {
+    // Supprime un éventuel titre déjà injecté
+    const existing = galleryBox.querySelector('.gallery-title-overlay');
+    if (existing) existing.remove();
+
+    const titleEl = document.createElement('div');
+    titleEl.className = 'gallery-title-overlay';
+    titleEl.innerHTML = `
+      <p class="slabel">01 — Le tournant historique</p>
+      <h2 class="shead">Comment tout a <span class="accent">basculé</span></h2>
+      <p class="sbody">Les dates clés qui ont transformé un sport populaire en machine à milliards.</p>
+    `;
+    galleryBox.appendChild(titleEl);
+  }
+
   const cards = [];
-  store.TIMELINE.forEach(item => {
+  store.TIMELINE.forEach((item) => {
     const card = document.createElement('div');
     card.className = 'gallery_box_in';
     const body = typeof item.body === 'string' ? item.body.replace(/<[^>]+>/g, ' ') : '';
@@ -318,7 +335,6 @@ function initTimelineCarousel() {
     boxOuter.appendChild(card);
   });
 
-  const galleryBox   = document.querySelector('.gallery_box');
   const galleryOuter = document.querySelector('.gallery_box_outer');
   if (!galleryBox || !galleryOuter) return;
 
@@ -354,7 +370,7 @@ function initTimelineCarousel() {
   gsap.timeline({
     scrollTrigger: {
       trigger:       galleryBox,
-      start:         'center center',
+      start:         'top center',
       end:           `+=${pinDistance}`,
       scrub:         1,
       pin:           true,

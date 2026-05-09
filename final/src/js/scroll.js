@@ -82,7 +82,7 @@ function _renderSingle(c, league, statDef, W, H, d3, LEAGUES) {
   const labelSp = 52;
   const size    = Math.min(W, H) - labelSp * 2;
   const cx      = W / 2;
-  const cy      = H / 2 + H * 0.04;
+  const cy      = H / 2 + H * 0.04 - 50;
   const innerR  = size * 0.18;
   const outerR  = size * 0.42;
 
@@ -203,7 +203,7 @@ function _renderMulti(c, activeLeagues, statDef, W, H, d3, LEAGUES) {
   const labelSp = 52;
   const size    = Math.min(W, H) - labelSp * 2;
   const cx      = W / 2;
-  const cy      = H / 2 + H * 0.04;
+  const cy      = H / 2 + H * 0.04 - 50;
   const innerR  = size * 0.18;
   const outerR  = size * 0.42;
 
