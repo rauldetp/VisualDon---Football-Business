@@ -73,7 +73,7 @@ body{background:#000000;color:var(--ink);font-family:'Barlow',sans-serif;line-he
 .conc-inner > .conc-editorial,
 .conc-inner > .conc-finale{
   margin-left:min(0px, calc((1360px - 100vw) / 2));
-  width:calc(100% + max(0px, (100vw - 1360px) / 2));
+  width:calc(100% + max(0px, 100vw - 1360px));
 }
 .slabel{display:inline-flex;align-items:center;gap:12px;font-family:'Space Mono',monospace;font-size:15px;text-transform:uppercase;letter-spacing:.14em;color:var(--green);margin-bottom:16px}
 .slabel::before{content:"";width:20px;height:2px;background:var(--green);border-radius:999px;display:inline-block}
