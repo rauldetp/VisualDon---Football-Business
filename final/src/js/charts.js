@@ -61,11 +61,11 @@ export function mkRadar(active, onChange) {
     const lr = R * 1.28;
     svg.append('text').attr('x', cx + lr * Math.cos(a)).attr('y', cy + lr * Math.sin(a))
       .attr('text-anchor', 'middle').attr('dominant-baseline', 'middle')
-      .attr('fill', 'var(--muted)').style('font-family', 'Space Mono,monospace').style('font-size', '11px').text(d);
+      .attr('fill', 'var(--muted)').style('font-family', 'Space Mono,monospace').style('font-size', '12px').text(d);
   });
 
   svg.append('text').attr('x', size - 6).attr('y', size - 6).attr('text-anchor', 'end')
-    .attr('fill', 'var(--muted)').style('font-family', 'Space Mono,monospace').style('font-size', '8px').text('données 2026');
+    .attr('fill', 'var(--muted)').style('font-family', 'Space Mono,monospace').style('font-size', '12px').text('données 2026');
 
   const polys = {};
 
@@ -135,7 +135,7 @@ export function mkAccessChart(active) {
   const W   = Math.max(c.offsetWidth || 800, 280);
   const H   = 320;
   const mob = window.innerWidth < 640;
-  const M   = mob ? { top: 20, right: 14, bottom: 38, left: 44 } : { top: 20, right: 100, bottom: 38, left: 52 };
+  const M   = mob ? { top: 20, right: 14, bottom: 38, left: 44 } : { top: 20, right: 116, bottom: 38, left: 52 };
   const iW  = W - M.left - M.right;
   const iH  = H - M.top - M.bottom;
 
@@ -155,7 +155,7 @@ export function mkAccessChart(active) {
     const y0 = i === 0 ? 0 : y(arr[i - 1].y);
     const y1 = y(z.y);
     g.append('rect').attr('x', 0).attr('y', y1).attr('width', iW).attr('height', y0 - y1).attr('fill', z.col);
-    if (!mob) g.append('text').attr('x', iW + 4).attr('y', y(z.y) + 4).attr('fill', 'var(--muted)').style('font-family', 'Space Mono,monospace').style('font-size', '7px').text(z.label);
+    if (!mob) g.append('text').attr('x', iW + 4).attr('y', y(z.y) + 4).attr('fill', 'var(--muted)').style('font-family', 'Space Mono,monospace').style('font-size', '12px').text(z.label);
   });
 
   g.append('g').attr('class', 'grid').call(d3.axisLeft(y).ticks(5).tickSize(-iW).tickFormat(''));
@@ -163,17 +163,11 @@ export function mkAccessChart(active) {
     .call(d3.axisBottom(x).tickValues([1990,1995,2000,2005,2010,2015,2020,2026]).tickFormat(d3.format('d')));
   g.append('g').attr('class', 'axis').call(d3.axisLeft(y).ticks(5).tickFormat(d => d));
   svg.append('text').attr('transform', 'rotate(-90)').attr('x', -(M.top + iH / 2)).attr('y', 12)
-    .attr('text-anchor', 'middle').attr('fill', 'var(--muted)').style('font-family', 'Space Mono,monospace').style('font-size', '8px').text("SCORE D'ACCESSIBILITÉ");
+    .attr('text-anchor', 'middle').attr('fill', 'var(--muted)').style('font-family', 'Space Mono,monospace').style('font-size', '12px').text("SCORE D'ACCESSIBILITÉ");
 
   Object.entries(dataset).forEach(([lg, data]) => {
     const color = LEAGUES[lg]?.color || '#999';
     g.append('path').datum(data).attr('fill', 'none').attr('stroke', color).attr('stroke-width', 2.5).attr('d', lf);
-    if (!mob) {
-      const last = data[data.length - 1];
-      g.append('text').attr('x', x(last.year) + 5).attr('y', y(last.value) + 4)
-        .attr('fill', color).attr('opacity', 0.55)
-        .style('font-family', 'Space Mono,monospace').style('font-size', '7.5px').text(lg.split(' ')[0]);
-    }
   });
 }
 
@@ -239,7 +233,7 @@ export function mkCorrelationChart(containerId, league) {
 
   const W  = c.offsetWidth  || 800;
   const H  = c.offsetHeight || 400;
-  const ML = 68, MR = 28, MT = 36, MB = 40;
+  const ML = 78, MR = 44, MT = 36, MB = 44;
   const iW = W - ML - MR;
   const iH = H - MT - MB;
 
@@ -260,9 +254,9 @@ export function mkCorrelationChart(containerId, league) {
   g.append('line').attr('x1', 0).attr('x2', iW).attr('y1', y100).attr('y2', y100)
     .attr('stroke', 'rgba(255,255,255,0.2)').attr('stroke-dasharray', '4,4');
   g.append('text').attr('x', -6).attr('y', y100 + 4).attr('text-anchor', 'end')
-    .attr('fill', 'rgba(255,255,255,0.3)').style('font-family', 'Space Mono,monospace').style('font-size', '8px').text('100');
-  g.append('text').attr('x', xScale(1990) + 4).attr('y', y100 - 8)
-    .attr('fill', 'rgba(255,255,255,0.2)').style('font-family', 'Space Mono,monospace').style('font-size', '7px').text('base 1990 = 100');
+    .attr('fill', 'rgba(255,255,255,0.3)').style('font-family', 'Space Mono,monospace').style('font-size', '12px').text('100');
+  g.append('text').attr('x', xScale(1990) + 4).attr('y', y100 - 18)
+    .attr('fill', 'rgba(255,255,255,0.2)').style('font-family', 'Space Mono,monospace').style('font-size', '12px').text('base 1990 = 100');
 
   // Grid
   yScale.ticks(6).forEach(tick => {
@@ -274,12 +268,12 @@ export function mkCorrelationChart(containerId, league) {
   g.append('g').attr('transform', `translate(0,${iH})`)
     .call(d3.axisBottom(xScale).tickValues([1990,1995,2000,2005,2010,2015,2020,2026]).tickFormat(d => d).tickSize(4))
     .call(ax => ax.select('.domain').attr('stroke', 'rgba(255,255,255,0.1)'))
-    .call(ax => ax.selectAll('text').attr('fill', 'rgba(255,255,255,0.35)').style('font-family', 'Space Mono,monospace').style('font-size', '8px').attr('dy', '1.4em'))
+    .call(ax => ax.selectAll('text').attr('fill', 'rgba(255,255,255,0.35)').style('font-family', 'Space Mono,monospace').style('font-size', '12px').attr('dy', '1.4em'))
     .call(ax => ax.selectAll('.tick line').attr('stroke', 'rgba(255,255,255,0.1)'));
   g.append('g')
     .call(d3.axisLeft(yScale).ticks(6).tickFormat(d => d).tickSize(4))
     .call(ax => ax.select('.domain').attr('stroke', 'rgba(255,255,255,0.1)'))
-    .call(ax => ax.selectAll('text').attr('fill', 'rgba(255,255,255,0.35)').style('font-family', 'Space Mono,monospace').style('font-size', '8px').attr('dx', '-4px'))
+    .call(ax => ax.selectAll('text').attr('fill', 'rgba(255,255,255,0.35)').style('font-family', 'Space Mono,monospace').style('font-size', '12px').attr('dx', '-4px'))
     .call(ax => ax.selectAll('.tick line').attr('stroke', 'rgba(255,255,255,0.1)'));
 
   // Areas + lines
@@ -291,35 +285,22 @@ export function mkCorrelationChart(containerId, league) {
   // Multiplier labels at 2026
   const last = bFilt[bFilt.length - 1];
   const lastR = rFilt[rFilt.length - 1];
-  if (last) g.append('text').attr('x', xScale(last.year) + 5).attr('y', yScale(last.value) - 5)
-    .attr('fill', color).style('font-family', 'Space Mono,monospace').style('font-size', '7.5px').style('font-weight', '700').text(`×${(last.value / 100).toFixed(1)}`);
-  if (lastR) g.append('text').attr('x', xScale(lastR.year) + 5).attr('y', yScale(lastR.value) - 5)
-    .attr('fill', 'rgba(255,255,255,0.55)').style('font-family', 'Space Mono,monospace').style('font-size', '7.5px').style('font-weight', '700').text(`×${(lastR.value / 100).toFixed(1)}`);
-
-  // Dots
-  function addDots(series, dotColor) {
-    g.selectAll(`circle.dot-${dotColor.replace(/[^a-z0-9]/gi, '')}`)
-      .data(series).enter().append('circle')
-      .attr('cx', d => xScale(d.year)).attr('cy', d => yScale(d.value))
-      .attr('r', 3).attr('fill', dotColor).attr('stroke', '#000').attr('stroke-width', 1)
-      .style('cursor', 'default')
-      .on('mouseenter', function() { d3.select(this).attr('r', 5.5); })
-      .on('mouseleave', function() { d3.select(this).attr('r', 3); });
-  }
-  addDots(bFilt, color);
-  addDots(rFilt, 'rgba(255,255,255,0.75)');
+  if (last) g.append('text').attr('x', xScale(last.year) - 8).attr('y', yScale(last.value) - 8)
+    .attr('text-anchor', 'end').attr('fill', color).style('font-family', 'Space Mono,monospace').style('font-size', '12px').style('font-weight', '700').text(`×${(last.value / 100).toFixed(1)}`);
+  if (lastR) g.append('text').attr('x', xScale(lastR.year) - 8).attr('y', yScale(lastR.value) + 18)
+    .attr('text-anchor', 'end').attr('fill', 'rgba(255,255,255,0.55)').style('font-family', 'Space Mono,monospace').style('font-size', '12px').style('font-weight', '700').text(`×${(lastR.value / 100).toFixed(1)}`);
 
   // Légende
   const leg = g.append('g').attr('transform', `translate(12, 10)`);
-  leg.append('rect').attr('x', -8).attr('y', -6).attr('width', 220).attr('height', 46)
+  leg.append('rect').attr('x', -8).attr('y', -6).attr('width', 230).attr('height', 58)
     .attr('rx', 6).attr('fill', 'rgba(0,0,0,0.6)').attr('stroke', 'rgba(255,255,255,0.08)');
-  leg.append('line').attr('x1', 0).attr('x2', 22).attr('y1', 8).attr('y2', 8).attr('stroke', color).attr('stroke-width', 2.5);
-  leg.append('text').attr('x', 28).attr('y', 12).attr('fill', 'rgba(255,255,255,0.65)').style('font-family', 'Space Mono,monospace').style('font-size', '8px').text('Budget supporter');
-  leg.append('line').attr('x1', 0).attr('x2', 22).attr('y1', 26).attr('y2', 26).attr('stroke', 'rgba(255,255,255,0.55)').attr('stroke-width', 2).attr('stroke-dasharray', '6,3');
-  leg.append('text').attr('x', 28).attr('y', 30).attr('fill', 'rgba(255,255,255,0.65)').style('font-family', 'Space Mono,monospace').style('font-size', '8px').text('Revenus ligue');
+  leg.append('line').attr('x1', 0).attr('x2', 22).attr('y1', 10).attr('y2', 10).attr('stroke', color).attr('stroke-width', 2.5);
+  leg.append('text').attr('x', 28).attr('y', 14).attr('fill', 'rgba(255,255,255,0.65)').style('font-family', 'Space Mono,monospace').style('font-size', '12px').text('Budget supporter');
+  leg.append('line').attr('x1', 0).attr('x2', 22).attr('y1', 34).attr('y2', 34).attr('stroke', 'rgba(255,255,255,0.55)').attr('stroke-width', 2).attr('stroke-dasharray', '6,3');
+  leg.append('text').attr('x', 28).attr('y', 38).attr('fill', 'rgba(255,255,255,0.65)').style('font-family', 'Space Mono,monospace').style('font-size', '12px').text('Revenus ligue');
 
   svg.append('text').attr('transform', 'rotate(-90)').attr('x', -(MT + iH / 2)).attr('y', 16)
-    .attr('text-anchor', 'middle').attr('fill', 'rgba(255,255,255,0.2)').style('font-family', 'Space Mono,monospace').style('font-size', '8px').text('INDICE BASE 100 (1990)');
+    .attr('text-anchor', 'middle').attr('fill', 'rgba(255,255,255,0.2)').style('font-family', 'Space Mono,monospace').style('font-size', '12px').text('INDICE BASE 100 (1990)');
 }
 
 function hexToRgbaC(hex, alpha) {

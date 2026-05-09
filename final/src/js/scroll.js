@@ -149,7 +149,7 @@ function _renderSingle(c, league, statDef, W, H, d3, LEAGUES) {
       .attr('text-anchor', 'middle').attr('dominant-baseline', 'middle')
       .attr('fill', 'rgba(255,255,255,0.38)')
       .style('font-family', 'Space Mono,monospace')
-      .style('font-size', Math.max(6, size * 0.013) + 'px')
+      .style('font-size', Math.max(12, size * 0.016) + 'px')
       .attr('transform', `rotate(${rot},${x},${y})`)
       .text(d.year);
   });
@@ -335,7 +335,7 @@ function _renderMulti(c, activeLeagues, statDef, W, H, d3, LEAGUES) {
       .attr('text-anchor', 'middle').attr('dominant-baseline', 'middle')
       .attr('fill', 'rgba(255,255,255,0.38)')
       .style('font-family', 'Space Mono,monospace')
-      .style('font-size', Math.max(6, size * 0.013) + 'px')
+      .style('font-size', Math.max(12, size * 0.016) + 'px')
       .attr('transform', `rotate(${rot},${x},${y})`).text(yr);
   });
 
@@ -351,7 +351,7 @@ function _renderMulti(c, activeLeagues, statDef, W, H, d3, LEAGUES) {
     legG.append('circle').attr('cx', x - 24).attr('cy', 0).attr('r', 4).attr('fill', color);
     legG.append('text').attr('x', x - 16).attr('y', 4)
       .attr('fill', 'rgba(255,255,255,0.45)')
-      .style('font-family', 'Space Mono,monospace').style('font-size', '8px')
+      .style('font-family', 'Space Mono,monospace').style('font-size', '12px')
       .text(`${flag} ${lg.split(' ')[0]}`);
   });
 }

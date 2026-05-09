@@ -208,7 +208,7 @@ export async function mkMap() {
         const chartPanel = document.createElement('div'); chartPanel.className = 'stat-chart-panel';
         const chartInner = document.createElement('div'); chartInner.className = 'stat-chart-inner';
         const chartLbl   = document.createElement('div');
-        chartLbl.style.cssText = "font-family:'Space Mono',monospace;font-size:7.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:4px";
+        chartLbl.style.cssText = "font-family:'Space Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:4px";
         chartLbl.textContent   = `${stat.label} · 1980–2026`;
         const chartSvgWrap     = document.createElement('div');
         chartPanel.appendChild(chartInner);
@@ -292,21 +292,22 @@ function hexToRgba(hex, alpha) {
 function miniSpkInline(container, data, color, d3) {
   if (!container || !data?.length) return;
   const w  = container.offsetWidth || 230;
-  const h  = 52;
+  const h      = 70;
+  const chartH = h - 18;
   const sv = d3.select(container).append('svg')
     .attr('viewBox', `0 0 ${w} ${h}`)
     .style('width', '100%').style('height', h + 'px');
   const x = d3.scaleLinear().domain(d3.extent(data, d => d.year)).range([0, w]);
-  const y = d3.scaleLinear().domain([0, d3.max(data, d => d.value)]).range([h - 2, 2]);
+  const y = d3.scaleLinear().domain([0, d3.max(data, d => d.value)]).range([chartH - 2, 2]);
   sv.append('path').datum(data)
     .attr('fill', `${color}20`)
-    .attr('d', d3.area().x(d => x(d.year)).y0(h).y1(d => y(d.value)).curve(d3.curveCatmullRom.alpha(0.5)));
+    .attr('d', d3.area().x(d => x(d.year)).y0(chartH).y1(d => y(d.value)).curve(d3.curveCatmullRom.alpha(0.5)));
   sv.append('path').datum(data)
     .attr('fill', 'none').attr('stroke', color).attr('stroke-width', 2)
     .attr('d', d3.line().x(d => x(d.year)).y(d => y(d.value)).curve(d3.curveCatmullRom.alpha(0.5)));
   [1980, 1990, 2000, 2010, 2020, 2026].forEach(yr => {
-    sv.append('text').attr('x', x(yr)).attr('y', h - 1)
+    sv.append('text').attr('x', x(yr)).attr('y', h - 3)
       .attr('text-anchor', 'middle').attr('fill', 'var(--muted)')
-      .style('font-family', 'Space Mono,monospace').style('font-size', '7px').text(yr);
+      .style('font-family', 'Space Mono,monospace').style('font-size', '12px').text(yr);
   });
 }
