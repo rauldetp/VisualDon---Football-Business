@@ -25,7 +25,7 @@ export async function mkMap() {
       loadScript('https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js').then(() => window.topojson)
     ]);
   } catch(e) {
-    globeEl.innerHTML = '<p style="color:var(--muted);font-family:Space Mono,monospace;padding:40px;font-size:11px">Connexion internet requise.</p>';
+    globeEl.innerHTML = '<p style="color:var(--muted);font-family:Barlow,sans-serif;padding:40px;font-size:12px">Connexion internet requise.</p>';
     return;
   }
 
@@ -208,7 +208,7 @@ export async function mkMap() {
         const chartPanel = document.createElement('div'); chartPanel.className = 'stat-chart-panel';
         const chartInner = document.createElement('div'); chartInner.className = 'stat-chart-inner';
         const chartLbl   = document.createElement('div');
-        chartLbl.style.cssText = "font-family:'Space Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:4px";
+        chartLbl.style.cssText = "font-family:'Barlow',sans-serif;font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:4px";
         chartLbl.textContent   = `${stat.label} · 1980–2026`;
         const chartSvgWrap     = document.createElement('div');
         chartPanel.appendChild(chartInner);
@@ -308,6 +308,6 @@ function miniSpkInline(container, data, color, d3) {
   [1980, 1990, 2000, 2010, 2020, 2026].forEach(yr => {
     sv.append('text').attr('x', x(yr)).attr('y', h - 3)
       .attr('text-anchor', 'middle').attr('fill', 'var(--muted)')
-      .style('font-family', 'Space Mono,monospace').style('font-size', '12px').text(yr);
+      .style('font-family', 'Barlow,sans-serif').style('font-size', '12px').text(yr);
   });
 }

@@ -61,11 +61,11 @@ export function mkRadar(active, onChange) {
     const lr = R * 1.28;
     svg.append('text').attr('x', cx + lr * Math.cos(a)).attr('y', cy + lr * Math.sin(a))
       .attr('text-anchor', 'middle').attr('dominant-baseline', 'middle')
-      .attr('fill', 'var(--muted)').style('font-family', 'Space Mono,monospace').style('font-size', '12px').text(d);
+      .attr('fill', 'var(--muted)').style('font-family', 'Barlow,sans-serif').style('font-size', '12px').text(d);
   });
 
   svg.append('text').attr('x', size - 6).attr('y', size - 6).attr('text-anchor', 'end')
-    .attr('fill', 'var(--muted)').style('font-family', 'Space Mono,monospace').style('font-size', '12px').text('données 2026');
+    .attr('fill', 'var(--muted)').style('font-family', 'Barlow,sans-serif').style('font-size', '12px').text('données 2026');
 
   const polys = {};
 
@@ -155,7 +155,7 @@ export function mkAccessChart(active) {
     const y0 = i === 0 ? 0 : y(arr[i - 1].y);
     const y1 = y(z.y);
     g.append('rect').attr('x', 0).attr('y', y1).attr('width', iW).attr('height', y0 - y1).attr('fill', z.col);
-    if (!mob) g.append('text').attr('x', iW + 4).attr('y', y(z.y) + 4).attr('fill', 'var(--muted)').style('font-family', 'Space Mono,monospace').style('font-size', '12px').text(z.label);
+    if (!mob) g.append('text').attr('x', iW + 4).attr('y', y(z.y) + 4).attr('fill', 'var(--muted)').style('font-family', 'Barlow,sans-serif').style('font-size', '12px').text(z.label);
   });
 
   g.append('g').attr('class', 'grid').call(d3.axisLeft(y).ticks(5).tickSize(-iW).tickFormat(''));
@@ -163,7 +163,7 @@ export function mkAccessChart(active) {
     .call(d3.axisBottom(x).tickValues([1990,1995,2000,2005,2010,2015,2020,2026]).tickFormat(d3.format('d')));
   g.append('g').attr('class', 'axis').call(d3.axisLeft(y).ticks(5).tickFormat(d => d));
   svg.append('text').attr('transform', 'rotate(-90)').attr('x', -(M.top + iH / 2)).attr('y', 12)
-    .attr('text-anchor', 'middle').attr('fill', 'var(--muted)').style('font-family', 'Space Mono,monospace').style('font-size', '12px').text("SCORE D'ACCESSIBILITÉ");
+    .attr('text-anchor', 'middle').attr('fill', 'var(--muted)').style('font-family', 'Barlow,sans-serif').style('font-size', '12px').text("SCORE D'ACCESSIBILITÉ");
 
   Object.entries(dataset).forEach(([lg, data]) => {
     const color = LEAGUES[lg]?.color || '#999';
@@ -224,7 +224,7 @@ export function mkCorrelationChart(containerId, league) {
 
   const commonYears = bData.map(d => d.year).filter(yr => rData.some(d => d.year === yr));
   if (commonYears.length < 2) {
-    c.innerHTML = '<p style="color:var(--muted);font-family:Space Mono,monospace;padding:40px;font-size:11px">Données insuffisantes.</p>';
+    c.innerHTML = '<p style="color:var(--muted);font-family:Barlow,sans-serif;padding:40px;font-size:12px">Données insuffisantes.</p>';
     return;
   }
 
@@ -254,9 +254,9 @@ export function mkCorrelationChart(containerId, league) {
   g.append('line').attr('x1', 0).attr('x2', iW).attr('y1', y100).attr('y2', y100)
     .attr('stroke', 'rgba(255,255,255,0.2)').attr('stroke-dasharray', '4,4');
   g.append('text').attr('x', -6).attr('y', y100 + 4).attr('text-anchor', 'end')
-    .attr('fill', 'rgba(255,255,255,0.3)').style('font-family', 'Space Mono,monospace').style('font-size', '12px').text('100');
+    .attr('fill', 'rgba(255,255,255,0.3)').style('font-family', 'Barlow,sans-serif').style('font-size', '12px').text('100');
   g.append('text').attr('x', xScale(1990) + 4).attr('y', y100 - 18)
-    .attr('fill', 'rgba(255,255,255,0.2)').style('font-family', 'Space Mono,monospace').style('font-size', '12px').text('base 1990 = 100');
+    .attr('fill', 'rgba(255,255,255,0.2)').style('font-family', 'Barlow,sans-serif').style('font-size', '12px').text('base 1990 = 100');
 
   // Grid
   yScale.ticks(6).forEach(tick => {
@@ -268,12 +268,12 @@ export function mkCorrelationChart(containerId, league) {
   g.append('g').attr('transform', `translate(0,${iH})`)
     .call(d3.axisBottom(xScale).tickValues([1990,1995,2000,2005,2010,2015,2020,2026]).tickFormat(d => d).tickSize(4))
     .call(ax => ax.select('.domain').attr('stroke', 'rgba(255,255,255,0.1)'))
-    .call(ax => ax.selectAll('text').attr('fill', 'rgba(255,255,255,0.35)').style('font-family', 'Space Mono,monospace').style('font-size', '12px').attr('dy', '1.4em'))
+    .call(ax => ax.selectAll('text').attr('fill', 'rgba(255,255,255,0.35)').style('font-family', 'Barlow,sans-serif').style('font-size', '12px').attr('dy', '1.4em'))
     .call(ax => ax.selectAll('.tick line').attr('stroke', 'rgba(255,255,255,0.1)'));
   g.append('g')
     .call(d3.axisLeft(yScale).ticks(6).tickFormat(d => d).tickSize(4))
     .call(ax => ax.select('.domain').attr('stroke', 'rgba(255,255,255,0.1)'))
-    .call(ax => ax.selectAll('text').attr('fill', 'rgba(255,255,255,0.35)').style('font-family', 'Space Mono,monospace').style('font-size', '12px').attr('dx', '-4px'))
+    .call(ax => ax.selectAll('text').attr('fill', 'rgba(255,255,255,0.35)').style('font-family', 'Barlow,sans-serif').style('font-size', '12px').attr('dx', '-4px'))
     .call(ax => ax.selectAll('.tick line').attr('stroke', 'rgba(255,255,255,0.1)'));
 
   // Areas + lines
@@ -286,21 +286,21 @@ export function mkCorrelationChart(containerId, league) {
   const last = bFilt[bFilt.length - 1];
   const lastR = rFilt[rFilt.length - 1];
   if (last) g.append('text').attr('x', xScale(last.year) - 8).attr('y', yScale(last.value) - 8)
-    .attr('text-anchor', 'end').attr('fill', color).style('font-family', 'Space Mono,monospace').style('font-size', '12px').style('font-weight', '700').text(`×${(last.value / 100).toFixed(1)}`);
+    .attr('text-anchor', 'end').attr('fill', color).style('font-family', 'Barlow,sans-serif').style('font-size', '12px').style('font-weight', '700').text(`×${(last.value / 100).toFixed(1)}`);
   if (lastR) g.append('text').attr('x', xScale(lastR.year) - 8).attr('y', yScale(lastR.value) + 18)
-    .attr('text-anchor', 'end').attr('fill', 'rgba(255,255,255,0.55)').style('font-family', 'Space Mono,monospace').style('font-size', '12px').style('font-weight', '700').text(`×${(lastR.value / 100).toFixed(1)}`);
+    .attr('text-anchor', 'end').attr('fill', 'rgba(255,255,255,0.55)').style('font-family', 'Barlow,sans-serif').style('font-size', '12px').style('font-weight', '700').text(`×${(lastR.value / 100).toFixed(1)}`);
 
   // Légende
   const leg = g.append('g').attr('transform', `translate(12, 10)`);
   leg.append('rect').attr('x', -8).attr('y', -6).attr('width', 230).attr('height', 58)
     .attr('rx', 6).attr('fill', 'rgba(0,0,0,0.6)').attr('stroke', 'rgba(255,255,255,0.08)');
   leg.append('line').attr('x1', 0).attr('x2', 22).attr('y1', 10).attr('y2', 10).attr('stroke', color).attr('stroke-width', 2.5);
-  leg.append('text').attr('x', 28).attr('y', 14).attr('fill', 'rgba(255,255,255,0.65)').style('font-family', 'Space Mono,monospace').style('font-size', '12px').text('Budget supporter');
+  leg.append('text').attr('x', 28).attr('y', 14).attr('fill', 'rgba(255,255,255,0.65)').style('font-family', 'Barlow,sans-serif').style('font-size', '12px').text('Budget supporter');
   leg.append('line').attr('x1', 0).attr('x2', 22).attr('y1', 34).attr('y2', 34).attr('stroke', 'rgba(255,255,255,0.55)').attr('stroke-width', 2).attr('stroke-dasharray', '6,3');
-  leg.append('text').attr('x', 28).attr('y', 38).attr('fill', 'rgba(255,255,255,0.65)').style('font-family', 'Space Mono,monospace').style('font-size', '12px').text('Revenus ligue');
+  leg.append('text').attr('x', 28).attr('y', 38).attr('fill', 'rgba(255,255,255,0.65)').style('font-family', 'Barlow,sans-serif').style('font-size', '12px').text('Revenus ligue');
 
   svg.append('text').attr('transform', 'rotate(-90)').attr('x', -(MT + iH / 2)).attr('y', 16)
-    .attr('text-anchor', 'middle').attr('fill', 'rgba(255,255,255,0.2)').style('font-family', 'Space Mono,monospace').style('font-size', '12px').text('INDICE BASE 100 (1990)');
+    .attr('text-anchor', 'middle').attr('fill', 'rgba(255,255,255,0.2)').style('font-family', 'Barlow,sans-serif').style('font-size', '12px').text('INDICE BASE 100 (1990)');
 }
 
 function hexToRgbaC(hex, alpha) {

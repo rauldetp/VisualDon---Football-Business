@@ -113,14 +113,14 @@ function _renderSingle(c, league, statDef, W, H, d3, LEAGUES) {
 
   g.append('text').attr('x', 5).attr('y', -outerR + 12)
     .attr('fill', 'rgba(255,255,255,0.22)')
-    .style('font-family', 'Space Mono,monospace')
-    .style('font-size', Math.max(8, size * 0.018) + 'px')
+    .style('font-family', 'Barlow,sans-serif')
+    .style('font-size', Math.max(12, size * 0.018) + 'px')
     .text(statDef.fmt(maxVal));
 
   g.append('text').attr('x', 5).attr('y', -(innerR + (outerR - innerR) * 0.5) + 12)
     .attr('fill', 'rgba(255,255,255,0.15)')
-    .style('font-family', 'Space Mono,monospace')
-    .style('font-size', Math.max(7, size * 0.015) + 'px')
+    .style('font-family', 'Barlow,sans-serif')
+    .style('font-size', Math.max(12, size * 0.015) + 'px')
     .text(statDef.fmt(maxVal * 0.5));
 
   const arcGen = d3.arc();
@@ -148,7 +148,7 @@ function _renderSingle(c, league, statDef, W, H, d3, LEAGUES) {
     g.append('text').attr('x', x).attr('y', y)
       .attr('text-anchor', 'middle').attr('dominant-baseline', 'middle')
       .attr('fill', 'rgba(255,255,255,0.38)')
-      .style('font-family', 'Space Mono,monospace')
+      .style('font-family', 'Barlow,sans-serif')
       .style('font-size', Math.max(12, size * 0.016) + 'px')
       .attr('transform', `rotate(${rot},${x},${y})`)
       .text(d.year);
@@ -168,15 +168,15 @@ function _renderSingle(c, league, statDef, W, H, d3, LEAGUES) {
   const centerYr = g.append('text')
     .attr('text-anchor', 'middle').attr('y', size * 0.022)
     .attr('fill', 'rgba(255,255,255,0.3)')
-    .style('font-family', 'Space Mono,monospace')
-    .style('font-size', Math.max(7, size * 0.016) + 'px')
+    .style('font-family', 'Barlow,sans-serif')
+    .style('font-size', Math.max(12, size * 0.016) + 'px')
     .text('2026');
 
   g.append('text')
     .attr('text-anchor', 'middle').attr('y', size * 0.053)
     .attr('fill', 'rgba(255,255,255,0.18)')
-    .style('font-family', 'Space Mono,monospace')
-    .style('font-size', Math.max(6, size * 0.013) + 'px')
+    .style('font-family', 'Barlow,sans-serif')
+    .style('font-size', Math.max(12, size * 0.013) + 'px')
     .text(statDef.unit);
 
   bars
@@ -231,14 +231,14 @@ function _renderMulti(c, activeLeagues, statDef, W, H, d3, LEAGUES) {
 
   g.append('text').attr('x', 5).attr('y', -outerR + 12)
     .attr('fill', 'rgba(255,255,255,0.22)')
-    .style('font-family', 'Space Mono,monospace')
-    .style('font-size', Math.max(8, size * 0.018) + 'px')
+    .style('font-family', 'Barlow,sans-serif')
+    .style('font-size', Math.max(12, size * 0.018) + 'px')
     .text(statDef.fmt(globalMax));
 
   g.append('text').attr('x', 5).attr('y', -(innerR + (outerR - innerR) * 0.5) + 12)
     .attr('fill', 'rgba(255,255,255,0.15)')
-    .style('font-family', 'Space Mono,monospace')
-    .style('font-size', Math.max(7, size * 0.015) + 'px')
+    .style('font-family', 'Barlow,sans-serif')
+    .style('font-size', Math.max(12, size * 0.015) + 'px')
     .text(statDef.fmt(globalMax * 0.5));
 
   const superBandW = (Math.PI * 2) / years.length;
@@ -263,22 +263,22 @@ function _renderMulti(c, activeLeagues, statDef, W, H, d3, LEAGUES) {
   const centerYr = g.append('text')
     .attr('text-anchor', 'middle').attr('y', size * 0.012)
     .attr('fill', 'rgba(255,255,255,0.2)')
-    .style('font-family', 'Space Mono,monospace')
-    .style('font-size', Math.max(7, size * 0.015) + 'px')
+    .style('font-family', 'Barlow,sans-serif')
+    .style('font-size', Math.max(12, size * 0.015) + 'px')
     .text('survole');
 
   const centerLg = g.append('text')
     .attr('text-anchor', 'middle').attr('y', size * 0.042)
     .attr('fill', 'rgba(255,255,255,0.18)')
-    .style('font-family', 'Space Mono,monospace')
-    .style('font-size', Math.max(6, size * 0.013) + 'px')
+    .style('font-family', 'Barlow,sans-serif')
+    .style('font-size', Math.max(12, size * 0.013) + 'px')
     .text('un bâton');
 
   g.append('text')
     .attr('text-anchor', 'middle').attr('y', size * 0.072)
     .attr('fill', 'rgba(255,255,255,0.12)')
-    .style('font-family', 'Space Mono,monospace')
-    .style('font-size', Math.max(6, size * 0.012) + 'px')
+    .style('font-family', 'Barlow,sans-serif')
+    .style('font-size', Math.max(12, size * 0.012) + 'px')
     .text(statDef.unit + ' · échelle absolue');
 
   // Barres
@@ -334,7 +334,7 @@ function _renderMulti(c, activeLeagues, statDef, W, H, d3, LEAGUES) {
     g.append('text').attr('x', x).attr('y', y)
       .attr('text-anchor', 'middle').attr('dominant-baseline', 'middle')
       .attr('fill', 'rgba(255,255,255,0.38)')
-      .style('font-family', 'Space Mono,monospace')
+      .style('font-family', 'Barlow,sans-serif')
       .style('font-size', Math.max(12, size * 0.016) + 'px')
       .attr('transform', `rotate(${rot},${x},${y})`).text(yr);
   });
@@ -351,7 +351,7 @@ function _renderMulti(c, activeLeagues, statDef, W, H, d3, LEAGUES) {
     legG.append('circle').attr('cx', x - 24).attr('cy', 0).attr('r', 4).attr('fill', color);
     legG.append('text').attr('x', x - 16).attr('y', 4)
       .attr('fill', 'rgba(255,255,255,0.45)')
-      .style('font-family', 'Space Mono,monospace').style('font-size', '12px')
+      .style('font-family', 'Barlow,sans-serif').style('font-size', '12px')
       .text(`${flag} ${lg.split(' ')[0]}`);
   });
 }
