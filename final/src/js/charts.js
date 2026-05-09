@@ -117,14 +117,13 @@ export function mkAccessChart(active) {
 
   function buildSeries(lg) {
     return years.map(yr => {
-      const t  = (TICKET[lg] || []).find(d => d.year === yr)?.value || 0;
-      const j  = (JERSEY[lg] || []).find(d => d.year === yr)?.value || 0;
-      const s  = (TV_SUB_FULL[lg] || []).find(d => d.year === yr)?.value || 0;
-      const fb = t * 17 + j + s * 12;
-      const sal   = (AVG_SALARY_TS[lg] || []).find(d => d.year === yr)?.value || 30000;
-      const pct   = (fb / (sal / 12)) * 100;
-      const score = Math.min(100, Math.max(0, Math.round((130 - pct) / 1.2)));
-      return { year: yr, value: score, fanBudget: Math.round(fb), pct: Math.round(pct) };
+      const t   = (TICKET[lg]        || []).find(d => d.year === yr)?.value || 0;
+      const j   = (JERSEY[lg]        || []).find(d => d.year === yr)?.value || 0;
+      const s   = (TV_SUB_FULL[lg]   || []).find(d => d.year === yr)?.value || 0;
+      const sal = (AVG_SALARY_TS[lg] || []).find(d => d.year === yr)?.value || 30000;
+      const fb  = t * 17 + j + s * 12;
+      const pct = (fb / (sal / 12)) * 100;
+      return { year: yr, value: Math.min(100, Math.max(0, Math.round((130 - pct) / 1.2))), fanBudget: Math.round(fb), pct: Math.round(pct) };
     });
   }
 
@@ -134,9 +133,9 @@ export function mkAccessChart(active) {
     .forEach(lg => { dataset[lg] = buildSeries(lg); });
 
   const W   = Math.max(c.offsetWidth || 800, 280);
-  const H   = 300;
+  const H   = 320;
   const mob = window.innerWidth < 640;
-  const M   = mob ? { top: 14, right: 14, bottom: 38, left: 44 } : { top: 14, right: 100, bottom: 38, left: 52 };
+  const M   = mob ? { top: 20, right: 14, bottom: 38, left: 44 } : { top: 20, right: 100, bottom: 38, left: 52 };
   const iW  = W - M.left - M.right;
   const iH  = H - M.top - M.bottom;
 
@@ -160,7 +159,8 @@ export function mkAccessChart(active) {
   });
 
   g.append('g').attr('class', 'grid').call(d3.axisLeft(y).ticks(5).tickSize(-iW).tickFormat(''));
-  g.append('g').attr('class', 'axis').attr('transform', `translate(0,${iH})`).call(d3.axisBottom(x).ticks(mob ? 5 : 9).tickFormat(d3.format('d')));
+  g.append('g').attr('class', 'axis').attr('transform', `translate(0,${iH})`)
+    .call(d3.axisBottom(x).tickValues([1990,1995,2000,2005,2010,2015,2020,2026]).tickFormat(d3.format('d')));
   g.append('g').attr('class', 'axis').call(d3.axisLeft(y).ticks(5).tickFormat(d => d));
   svg.append('text').attr('transform', 'rotate(-90)').attr('x', -(M.top + iH / 2)).attr('y', 12)
     .attr('text-anchor', 'middle').attr('fill', 'var(--muted)').style('font-family', 'Space Mono,monospace').style('font-size', '8px').text("SCORE D'ACCESSIBILITÉ");
@@ -170,47 +170,52 @@ export function mkAccessChart(active) {
     g.append('path').datum(data).attr('fill', 'none').attr('stroke', color).attr('stroke-width', 2.5).attr('d', lf);
     if (!mob) {
       const last = data[data.length - 1];
-      g.append('text').attr('x', x(last.year) + 7).attr('y', y(last.value) + 4)
-        .attr('fill', color).style('font-family', 'Space Mono,monospace').style('font-size', '7.5px').text(lg.split(' ')[0]);
+      g.append('text').attr('x', x(last.year) + 5).attr('y', y(last.value) + 4)
+        .attr('fill', color).attr('opacity', 0.55)
+        .style('font-family', 'Space Mono,monospace').style('font-size', '7.5px').text(lg.split(' ')[0]);
     }
   });
 }
 
 // ── Corrélation — Base 100 en 1990 ────────────────────────────────────────────
 export function mkCorrelationChart(containerId, league) {
-  const { d3, LEAGUES, TICKET, JERSEY, TV_SUB_FULL, YEARS, TV, WAGE_BILL, SPONSOR_REV, STADIUM_REV, MERCH_REV } = store;
+  const { d3, LEAGUES, TICKET, JERSEY, TV_SUB_FULL, TV, WAGE_BILL, SPONSOR_REV, STADIUM_REV, MERCH_REV } = store;
 
   const c = document.getElementById(containerId);
   if (!c) return;
   c.innerHTML = '';
 
-  const color = LEAGUES[league]?.color || '#2d6a2d';
+  const color  = LEAGUES[league]?.color || '#2d6a2d';
+  const years  = d3.range(1990, 2027);
 
   const ticket = TICKET[league]      || [];
   const jersey = JERSEY[league]      || [];
   const tvsub  = TV_SUB_FULL[league] || [];
+  const tvD    = TV[league]          || [];
+  const wgD    = WAGE_BILL[league]   || [];
+  const spD    = SPONSOR_REV[league] || [];
+  const stD    = STADIUM_REV[league] || [];
+  const mcD    = MERCH_REV[league]   || [];
 
-  const budgetRaw = YEARS.map(yr => {
-    const t = ticket.find(d => d.year === yr)?.value || 0;
-    const j = jersey.find(d => d.year === yr)?.value || 0;
-    const s = tvsub.find(d => d.year === yr)?.value  || 0;
-    return { year: yr, value: Math.round(t * 17 + j + s * 12) };
-  });
+  const budgetRaw = years.map(yr => ({
+    year: yr,
+    value: Math.round(
+      (ticket.find(d => d.year === yr)?.value || 0) * 17 +
+      (jersey.find(d => d.year === yr)?.value || 0) +
+      (tvsub.find(d => d.year === yr)?.value  || 0) * 12
+    )
+  }));
 
-  const tvData      = TV[league]          || [];
-  const wageData    = WAGE_BILL[league]   || [];
-  const sponsorData = SPONSOR_REV[league] || [];
-  const stadiumData = STADIUM_REV[league] || [];
-  const merchData   = MERCH_REV[league]   || [];
-
-  const revenueRaw = YEARS.map(yr => {
-    const tv = tvData.find(d => d.year === yr)?.value      || 0;
-    const wg = wageData.find(d => d.year === yr)?.value    || 0;
-    const sp = sponsorData.find(d => d.year === yr)?.value || 0;
-    const st = stadiumData.find(d => d.year === yr)?.value || 0;
-    const mc = merchData.find(d => d.year === yr)?.value   || 0;
-    return { year: yr, value: Math.round(tv + wg + sp + st + mc) };
-  });
+  const revenueRaw = years.map(yr => ({
+    year: yr,
+    value: Math.round(
+      (tvD.find(d => d.year === yr)?.value || 0) +
+      (wgD.find(d => d.year === yr)?.value || 0) +
+      (spD.find(d => d.year === yr)?.value || 0) +
+      (stD.find(d => d.year === yr)?.value || 0) +
+      (mcD.find(d => d.year === yr)?.value || 0)
+    )
+  }));
 
   function toBase100(series, baseYear = 1990) {
     const base = series.find(d => d.year === baseYear)?.value || series[0]?.value;
@@ -222,15 +227,15 @@ export function mkCorrelationChart(containerId, league) {
 
   const bData = toBase100(budgetRaw,  1990);
   const rData = toBase100(revenueRaw, 1990);
-  const commonYears = bData.map(d => d.year).filter(yr => rData.some(d => d.year === yr));
 
+  const commonYears = bData.map(d => d.year).filter(yr => rData.some(d => d.year === yr));
   if (commonYears.length < 2) {
     c.innerHTML = '<p style="color:var(--muted);font-family:Space Mono,monospace;padding:40px;font-size:11px">Données insuffisantes.</p>';
     return;
   }
 
-  const bFiltered = bData.filter(d => commonYears.includes(d.year));
-  const rFiltered = rData.filter(d => commonYears.includes(d.year));
+  const bFilt = bData.filter(d => commonYears.includes(d.year));
+  const rFilt = rData.filter(d => commonYears.includes(d.year));
 
   const W  = c.offsetWidth  || 800;
   const H  = c.offsetHeight || 400;
@@ -241,13 +246,16 @@ export function mkCorrelationChart(containerId, league) {
   const svg = d3.select(c).append('svg').attr('width', W).attr('height', H).style('display', 'block');
   const g   = svg.append('g').attr('transform', `translate(${ML},${MT})`);
 
-  const allVals = [...bFiltered.map(d => d.value), ...rFiltered.map(d => d.value)];
-  const yMin    = 80;
-  const yMax    = Math.ceil(d3.max(allVals) / 50) * 50 + 50;
+  const allVals = [...bFilt.map(d => d.value), ...rFilt.map(d => d.value)];
+  const yMin = 80;
+  const yMax = Math.ceil(d3.max(allVals) / 50) * 50 + 50;
 
-  const xScale = d3.scaleLinear().domain([d3.min(commonYears), d3.max(commonYears)]).range([0, iW]);
+  const xScale = d3.scaleLinear().domain([1990, 2026]).range([0, iW]);
   const yScale = d3.scaleLinear().domain([yMin, yMax]).range([iH, 0]);
+  const areaGen = d3.area().x(d => xScale(d.year)).y0(yScale(100)).y1(d => yScale(d.value)).curve(d3.curveCatmullRom.alpha(0.5));
+  const lineGen = d3.line().x(d => xScale(d.year)).y(d => yScale(d.value)).curve(d3.curveCatmullRom.alpha(0.5));
 
+  // Base 100 line
   const y100 = yScale(100);
   g.append('line').attr('x1', 0).attr('x2', iW).attr('y1', y100).attr('y2', y100)
     .attr('stroke', 'rgba(255,255,255,0.2)').attr('stroke-dasharray', '4,4');
@@ -256,45 +264,41 @@ export function mkCorrelationChart(containerId, league) {
   g.append('text').attr('x', xScale(1990) + 4).attr('y', y100 - 8)
     .attr('fill', 'rgba(255,255,255,0.2)').style('font-family', 'Space Mono,monospace').style('font-size', '7px').text('base 1990 = 100');
 
+  // Grid
   yScale.ticks(6).forEach(tick => {
     if (tick === 100) return;
     g.append('line').attr('x1', 0).attr('x2', iW).attr('y1', yScale(tick)).attr('y2', yScale(tick)).attr('stroke', 'rgba(255,255,255,0.04)');
   });
 
-  const xTicks = commonYears.filter((_, i) => i % 4 === 0);
+  // Axes
   g.append('g').attr('transform', `translate(0,${iH})`)
-    .call(d3.axisBottom(xScale).tickValues(xTicks).tickFormat(d => d).tickSize(4))
+    .call(d3.axisBottom(xScale).tickValues([1990,1995,2000,2005,2010,2015,2020,2026]).tickFormat(d => d).tickSize(4))
     .call(ax => ax.select('.domain').attr('stroke', 'rgba(255,255,255,0.1)'))
     .call(ax => ax.selectAll('text').attr('fill', 'rgba(255,255,255,0.35)').style('font-family', 'Space Mono,monospace').style('font-size', '8px').attr('dy', '1.4em'))
     .call(ax => ax.selectAll('.tick line').attr('stroke', 'rgba(255,255,255,0.1)'));
-
   g.append('g')
     .call(d3.axisLeft(yScale).ticks(6).tickFormat(d => d).tickSize(4))
     .call(ax => ax.select('.domain').attr('stroke', 'rgba(255,255,255,0.1)'))
     .call(ax => ax.selectAll('text').attr('fill', 'rgba(255,255,255,0.35)').style('font-family', 'Space Mono,monospace').style('font-size', '8px').attr('dx', '-4px'))
     .call(ax => ax.selectAll('.tick line').attr('stroke', 'rgba(255,255,255,0.1)'));
 
-  const areaGen = d3.area().x(d => xScale(d.year)).y0(y100).y1(d => yScale(d.value)).curve(d3.curveCatmullRom.alpha(0.5));
-  const lineGen = d3.line().x(d => xScale(d.year)).y(d => yScale(d.value)).curve(d3.curveCatmullRom.alpha(0.5));
+  // Areas + lines
+  g.append('path').datum(bFilt).attr('fill', hexToRgbaC(color, 0.15)).attr('d', areaGen);
+  g.append('path').datum(rFilt).attr('fill', 'rgba(255,255,255,0.04)').attr('d', areaGen);
+  g.append('path').datum(bFilt).attr('fill', 'none').attr('stroke', color).attr('stroke-width', 2.5).attr('d', lineGen);
+  g.append('path').datum(rFilt).attr('fill', 'none').attr('stroke', 'rgba(255,255,255,0.55)').attr('stroke-width', 2).attr('stroke-dasharray', '6,3').attr('d', lineGen);
 
-  g.append('path').datum(bFiltered).attr('fill', hexToRgbaC(color, 0.15)).attr('d', areaGen);
-  g.append('path').datum(rFiltered).attr('fill', 'rgba(255,255,255,0.04)').attr('d', areaGen);
-  g.append('path').datum(bFiltered).attr('fill', 'none').attr('stroke', color).attr('stroke-width', 2.5).attr('d', lineGen);
-  g.append('path').datum(rFiltered).attr('fill', 'none').attr('stroke', 'rgba(255,255,255,0.55)').attr('stroke-width', 2).attr('stroke-dasharray', '6,3').attr('d', lineGen);
+  // Multiplier labels at 2026
+  const last = bFilt[bFilt.length - 1];
+  const lastR = rFilt[rFilt.length - 1];
+  if (last) g.append('text').attr('x', xScale(last.year) + 5).attr('y', yScale(last.value) - 5)
+    .attr('fill', color).style('font-family', 'Space Mono,monospace').style('font-size', '7.5px').style('font-weight', '700').text(`×${(last.value / 100).toFixed(1)}`);
+  if (lastR) g.append('text').attr('x', xScale(lastR.year) + 5).attr('y', yScale(lastR.value) - 5)
+    .attr('fill', 'rgba(255,255,255,0.55)').style('font-family', 'Space Mono,monospace').style('font-size', '7.5px').style('font-weight', '700').text(`×${(lastR.value / 100).toFixed(1)}`);
 
-  // Labels fin de courbe
-  const lastB = bFiltered[bFiltered.length - 1];
-  const lastR = rFiltered[rFiltered.length - 1];
-  g.append('text').attr('x', xScale(lastB.year) + 6).attr('y', yScale(lastB.value) + 4)
-    .attr('fill', color).style('font-family', 'Space Mono,monospace').style('font-size', '8px').style('font-weight', '700')
-    .text(`×${(lastB.value / 100).toFixed(1)}`);
-  g.append('text').attr('x', xScale(lastR.year) + 6).attr('y', yScale(lastR.value) + 4)
-    .attr('fill', 'rgba(255,255,255,0.55)').style('font-family', 'Space Mono,monospace').style('font-size', '8px').style('font-weight', '700')
-    .text(`×${(lastR.value / 100).toFixed(1)}`);
-
-  // Points sans tooltip — highlight visuel seulement
+  // Dots
   function addDots(series, dotColor) {
-    g.selectAll(`circle.dot-${dotColor.replace(/[^a-z]/gi, '')}`)
+    g.selectAll(`circle.dot-${dotColor.replace(/[^a-z0-9]/gi, '')}`)
       .data(series).enter().append('circle')
       .attr('cx', d => xScale(d.year)).attr('cy', d => yScale(d.value))
       .attr('r', 3).attr('fill', dotColor).attr('stroke', '#000').attr('stroke-width', 1)
@@ -302,19 +306,17 @@ export function mkCorrelationChart(containerId, league) {
       .on('mouseenter', function() { d3.select(this).attr('r', 5.5); })
       .on('mouseleave', function() { d3.select(this).attr('r', 3); });
   }
-
-  addDots(bFiltered, color);
-  addDots(rFiltered, 'rgba(255,255,255,0.75)');
+  addDots(bFilt, color);
+  addDots(rFilt, 'rgba(255,255,255,0.75)');
 
   // Légende
   const leg = g.append('g').attr('transform', `translate(12, 10)`);
-  leg.append('rect').attr('x', -8).attr('y', -6).attr('width', 220).attr('height', 52)
+  leg.append('rect').attr('x', -8).attr('y', -6).attr('width', 220).attr('height', 46)
     .attr('rx', 6).attr('fill', 'rgba(0,0,0,0.6)').attr('stroke', 'rgba(255,255,255,0.08)');
   leg.append('line').attr('x1', 0).attr('x2', 22).attr('y1', 8).attr('y2', 8).attr('stroke', color).attr('stroke-width', 2.5);
   leg.append('text').attr('x', 28).attr('y', 12).attr('fill', 'rgba(255,255,255,0.65)').style('font-family', 'Space Mono,monospace').style('font-size', '8px').text('Budget supporter');
   leg.append('line').attr('x1', 0).attr('x2', 22).attr('y1', 26).attr('y2', 26).attr('stroke', 'rgba(255,255,255,0.55)').attr('stroke-width', 2).attr('stroke-dasharray', '6,3');
   leg.append('text').attr('x', 28).attr('y', 30).attr('fill', 'rgba(255,255,255,0.65)').style('font-family', 'Space Mono,monospace').style('font-size', '8px').text('Revenus ligue');
-  leg.append('text').attr('x', 0).attr('y', 46).attr('fill', 'rgba(255,255,255,0.2)').style('font-family', 'Space Mono,monospace').style('font-size', '7px').text('Base 100 = 1990');
 
   svg.append('text').attr('transform', 'rotate(-90)').attr('x', -(MT + iH / 2)).attr('y', 16)
     .attr('text-anchor', 'middle').attr('fill', 'rgba(255,255,255,0.2)').style('font-family', 'Space Mono,monospace').style('font-size', '8px').text('INDICE BASE 100 (1990)');

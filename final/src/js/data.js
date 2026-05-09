@@ -157,4 +157,45 @@ export function initData(raw) {
   store.TV_EXT     = TV_EXT;
   store.TICKET_EXT = TICKET_EXT;
   store.JERSEY_EXT = JERSEY_EXT;
+
+  // ── Projections 2027–2070 ─────────────────────────────────────────────────
+  const PROJ_END = 2070;
+  store.PROJ_END   = PROJ_END;
+  store.YEARS_PROJ = d3.range(1990, PROJ_END + 1);
+
+  function projFrom(series, cagr) {
+    const hist = series.filter(d => d.year <= 2026);
+    const base = hist.find(d => d.year === 2026) || hist[hist.length - 1];
+    if (!base) return series;
+    return [
+      ...hist,
+      ...d3.range(2027, PROJ_END + 1).map(yr => ({
+        year: yr,
+        value: Math.round(base.value * Math.pow(1 + cagr, yr - 2026)),
+        proj: true
+      }))
+    ];
+  }
+
+  const TV_PROJ = {}, TICKET_PROJ = {}, JERSEY_PROJ = {},
+        AVG_SALARY_PROJ = {}, TV_SUB_FULL_PROJ = {},
+        WAGE_BILL_PROJ = {}, SPONSOR_REV_PROJ = {},
+        STADIUM_REV_PROJ = {}, MERCH_REV_PROJ = {};
+
+  Object.keys(raw.leagues).forEach(lg => {
+    TV_PROJ[lg]          = projFrom(TV[lg],              0.020);
+    TICKET_PROJ[lg]      = projFrom(TICKET[lg],          0.025);
+    JERSEY_PROJ[lg]      = projFrom(JERSEY[lg],          0.020);
+    AVG_SALARY_PROJ[lg]  = projFrom(AVG_SALARY_TS[lg],   0.025);
+    TV_SUB_FULL_PROJ[lg] = projFrom(TV_SUB_FULL[lg],     0.015);
+    WAGE_BILL_PROJ[lg]   = projFrom(store.WAGE_BILL[lg]   || [], 0.030);
+    SPONSOR_REV_PROJ[lg] = projFrom(store.SPONSOR_REV[lg] || [], 0.030);
+    STADIUM_REV_PROJ[lg] = projFrom(store.STADIUM_REV[lg] || [], 0.025);
+    MERCH_REV_PROJ[lg]   = projFrom(store.MERCH_REV[lg]   || [], 0.028);
+  });
+
+  store.TV_PROJ = TV_PROJ; store.TICKET_PROJ = TICKET_PROJ; store.JERSEY_PROJ = JERSEY_PROJ;
+  store.AVG_SALARY_PROJ = AVG_SALARY_PROJ; store.TV_SUB_FULL_PROJ = TV_SUB_FULL_PROJ;
+  store.WAGE_BILL_PROJ = WAGE_BILL_PROJ; store.SPONSOR_REV_PROJ = SPONSOR_REV_PROJ;
+  store.STADIUM_REV_PROJ = STADIUM_REV_PROJ; store.MERCH_REV_PROJ = MERCH_REV_PROJ;
 }

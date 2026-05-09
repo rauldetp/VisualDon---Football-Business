@@ -7,25 +7,28 @@ export function getFanStats() {
   return [
     {
       key: 'ticket', title: 'Billet moyen', unit: '€',
-      desc: 'Prix moyen d\'un billet de championnat · 1990–2026 · hors abonnement saison',
-      getData: lg => store.TICKET[lg] || [], fmt: fmtE
+      desc: 'Prix moyen d\'un billet de championnat · 1990–2026',
+      getData: lg => store.TICKET[lg] || [],
+      fmt: fmtE
     },
     {
       key: 'jersey', title: 'Maillot officiel', unit: '€',
       desc: 'Prix public d\'un maillot adulte floqué · kit domicile · 1990–2026',
-      getData: lg => store.JERSEY[lg] || [], fmt: fmtE
+      getData: lg => store.JERSEY[lg] || [],
+      fmt: fmtE
     },
     {
       key: 'tvsub', title: 'Abonnements TV — toutes compétitions', unit: '€/mois',
       desc: 'Coût mensuel cumulé pour suivre TOUS les matchs d\'un club · 1992–2026',
-      getData: lg => store.TV_SUB_FULL[lg] || [], fmt: v => `${Math.round(v)} €/m`
+      getData: lg => store.TV_SUB_FULL[lg] || [],
+      fmt: v => `${Math.round(v)} €/m`
     },
     {
       key: 'budget', title: 'Budget saison d\'un fan type', unit: '€/saison',
       desc: '17 matchs domicile + maillot officiel + abonnements TV annuels · 1990–2026',
       getData: lg => {
-        const t = store.TICKET[lg] || [];
-        const j = store.JERSEY[lg] || [];
+        const t = store.TICKET[lg]      || [];
+        const j = store.JERSEY[lg]      || [];
         const s = store.TV_SUB_FULL[lg] || [];
         return store.YEARS.map(yr => ({
           year: yr,
@@ -43,11 +46,11 @@ export function getFanStats() {
 
 export function getLeagueStats() {
   return [
-    { key: 'tv',      title: 'Droits TV du championnat',              unit: 'M€', desc: 'Droits TV annuels vendus par la ligue · 1990–2026',               getData: lg => store.TV[lg]          || [], fmt: fmtM },
-    { key: 'wage',    title: 'Masse salariale totale',                unit: 'M€', desc: 'Total des salaires de tous les joueurs · 1980–2026',                getData: lg => store.WAGE_BILL[lg]   || [], fmt: fmtM },
-    { key: 'sponsor', title: 'Revenus sponsors — ligue entière',      unit: 'M€', desc: 'Total des contrats de sponsoring pour tous les clubs · 1980–2026',  getData: lg => store.SPONSOR_REV[lg] || [], fmt: fmtM },
-    { key: 'stadium', title: 'Revenus billetterie — ligue entière',   unit: 'M€', desc: 'Total des recettes billetterie pour tous les clubs · 1980–2026',    getData: lg => store.STADIUM_REV[lg] || [], fmt: fmtM },
-    { key: 'merch',   title: 'Revenus merchandising — ligue entière', unit: 'M€', desc: 'Ventes de produits dérivés · tous clubs · 1980–2026',               getData: lg => store.MERCH_REV[lg]   || [], fmt: fmtM },
+    { key: 'tv',      title: 'Droits TV du championnat',              unit: 'M€', desc: 'Droits TV annuels vendus par la ligue · 1990–2026',                              getData: lg => store.TV[lg]          || [], fmt: fmtM },
+    { key: 'wage',    title: 'Masse salariale totale',                unit: 'M€', desc: 'Total des salaires de tous les joueurs · 1980–2026',                             getData: lg => store.WAGE_BILL[lg]   || [], fmt: fmtM },
+    { key: 'sponsor', title: 'Revenus sponsors — ligue entière',      unit: 'M€', desc: 'Total des contrats de sponsoring pour tous les clubs · 1980–2026',               getData: lg => store.SPONSOR_REV[lg] || [], fmt: fmtM },
+    { key: 'stadium', title: 'Revenus billetterie — ligue entière',   unit: 'M€', desc: 'Total des recettes billetterie pour tous les clubs · 1980–2026',                 getData: lg => store.STADIUM_REV[lg] || [], fmt: fmtM },
+    { key: 'merch',   title: 'Revenus merchandising — ligue entière', unit: 'M€', desc: 'Ventes de produits dérivés · tous clubs · 1980–2026',                           getData: lg => store.MERCH_REV[lg]   || [], fmt: fmtM },
   ];
 }
 
@@ -132,8 +135,10 @@ function _renderSingle(c, league, statDef, W, H, d3, LEAGUES) {
   bars.transition().duration(800).delay((d, i) => i * 10).ease(d3.easeCubicOut)
     .attr('d', d => arcGen({ innerRadius: innerR, outerRadius: Math.max(innerR + 1, radScale(d.value)), startAngle: angleScale(d.year), endAngle: angleScale(d.year) + angleScale.bandwidth() }));
 
-  const labelR = outerR + 14;
+  const labelR   = outerR + 14;
+  const shownYrs = new Set([1990,1995,2000,2005,2010,2015,2020,2026]);
   data.forEach(d => {
+    if (!shownYrs.has(d.year)) return;
     const mid  = angleScale(d.year) + angleScale.bandwidth() / 2;
     const svgA = mid - Math.PI / 2;
     const x = Math.cos(svgA) * labelR;

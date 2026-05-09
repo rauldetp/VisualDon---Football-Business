@@ -52,6 +52,7 @@ function initApp() {
   }, 0.45);
 
   initTimelineCarousel();
+  initConclusion();
 
   /* ──────────────────────────────────────────────────────────────────────────
      ÉTAT PARTAGÉ DES CHAMPIONNATS ACTIFS
@@ -292,6 +293,60 @@ function initApp() {
 }
 
 boot();
+
+/* ──────────────────────────────────────────────────────────────────────────────
+   CONCLUSION / ÉPILOGUE
+──────────────────────────────────────────────────────────────────────────────── */
+function initConclusion() {
+  /* ── Helpers d'animation ──────────────────────────────────────────────── */
+  function countUp(el, target, suf, dur = 1400) {
+    const start = performance.now();
+    const step  = t => {
+      const p    = Math.min((t - start) / dur, 1);
+      const ease = 1 - Math.pow(1 - p, 3);
+      const v    = Math.round(ease * target);
+      el.textContent = v.toLocaleString('fr') + suf;
+      if (p < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }
+
+  function onVisible(el, cb, threshold = 0.2) {
+    const obs = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting) { cb(); obs.disconnect(); }
+    }, { threshold });
+    obs.observe(el);
+  }
+
+  /* ── Diptych : count-up des chiffres 2026 ─────────────────────────────── */
+  const diptych = document.querySelector('.conc-diptych');
+  if (diptych) {
+    onVisible(diptych, () => {
+      diptych.classList.add('in');
+      diptych.querySelectorAll('[data-conc-count]').forEach((el, i) => {
+        const target = parseInt(el.dataset.concCount, 10);
+        const suf    = el.dataset.concSuf || '';
+        setTimeout(() => countUp(el, target, suf), i * 130);
+      });
+    }, 0.15);
+  }
+
+  /* ── Editorial blocks ─────────────────────────────────────────────────── */
+  document.querySelectorAll('.conc-ed-block').forEach(el => {
+    onVisible(el, () => el.classList.add('in'), 0.15);
+  });
+
+  /* ── Finale : ligne + quote + close ──────────────────────────────────── */
+  const quoteLine = document.getElementById('conc-quote-line');
+  const quote     = document.querySelector('.conc-quote');
+  const close     = document.querySelector('.conc-close');
+
+  if (quoteLine) onVisible(quoteLine, () => {
+    quoteLine.classList.add('in');
+    if (quote) setTimeout(() => quote.classList.add('in'), 200);
+    if (close) setTimeout(() => close.classList.add('in'), 500);
+  }, 0.3);
+}
 
 /* ──────────────────────────────────────────────────────────────────────────────
    TIMELINE CAROUSEL
