@@ -53,6 +53,14 @@ body{background:#000000;color:var(--ink);font-family:'Barlow',sans-serif;line-he
 /* ── Layout général ──────────────────────────────────────────────────────── */
 .section{max-width:1360px;margin:0 auto;padding:88px 52px}
 .section-head{margin-bottom:36px;max-width:740px}
+
+/* ── Alignement titres à gauche (même bord que sections 03/04 full-width) ── */
+/* Compense la marge auto du container centré max-width:1360px               */
+.section-head,
+.conc-opener,
+.gallery-title-overlay{
+  margin-left:min(0px, calc((1360px - 100vw) / 2));
+}
 .slabel{display:inline-flex;align-items:center;gap:12px;font-family:'Space Mono',monospace;font-size:15px;text-transform:uppercase;letter-spacing:.14em;color:var(--green);margin-bottom:16px}
 .slabel::before{content:"";width:20px;height:2px;background:var(--green);border-radius:999px;display:inline-block}
 .shead{font-family:'Oswald',sans-serif;font-size:var(--shead-size);line-height:.91;letter-spacing:-.015em;margin-bottom:14px}
