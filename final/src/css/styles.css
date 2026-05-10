@@ -1,8 +1,8 @@
 :root{
   --bg:#000000;--bg2:#1a1a1a;--bg3:#2d2d2d;--card:#1a1a1a;--border:#333333;
   --ink:#ffffff;--ink2:#e0e0e0;--muted:#999999;
-  --green:#2d6a2d;--green-l:#1a3a1a;--green-m:#4a9c4a;--green-v:#00c853;
-  --gold:#e6a817;
+  --green:#007832;--green-l:#112a11;--green-m:#2d6e2d;--green-v:#008838;
+  --gold:#a07010;
   --shadow:0 2px 16px rgba(0,0,0,.3);--shadow-md:0 8px 32px rgba(0,0,0,.4);
   --r:14px;--r-lg:22px;
   --shead-size:clamp(28px,3.5vw,52px);
@@ -30,12 +30,14 @@ body{background:#000000;color:var(--ink);font-family:'Barlow',sans-serif;line-he
 .nav-links a:hover{color:var(--green)}
 
 /* ── Hero ────────────────────────────────────────────────────────────────── */
-.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:space-between;padding:110px 52px 56px;position:relative;overflow:hidden;background:linear-gradient(160deg,#000000 55%,#1a3a1a 100%)}
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:space-between;padding:110px 52px 56px;position:relative;overflow:hidden;background:url('/pitch.jpg') center center / cover no-repeat;}
+.hero::before{content:'';position:absolute;inset:0;background:rgba(0,0,0,0.82);z-index:0}
+.hero > *{position:relative;z-index:1}
 .hero-circle{position:absolute;right:5%;top:50%;transform:translateY(-50%);width:clamp(260px,36vw,520px);aspect-ratio:1;border-radius:50%;border:1.5px solid rgba(45,106,45,.1);pointer-events:none}
 .hero-circle::after{content:"";position:absolute;inset:13%;border-radius:50%;border:1px solid rgba(45,106,45,.07)}
 .hero-copy{position:relative;z-index:1;max-width:800px}
 .hero > .eyebrow,.hero > .hero-title,.hero > .hero-sub{position:relative;z-index:1}
-.eyebrow{display:inline-flex;align-items:center;gap:8px;font-family:'Barlow',sans-serif;font-size:12px;text-transform:uppercase;letter-spacing:.22em;color:var(--green);padding:6px 14px;border:1px solid rgba(45,106,45,.2);border-radius:999px;background:rgba(45,106,45,.05)}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-family:'Barlow',sans-serif;font-size:12px;text-transform:uppercase;letter-spacing:.22em;color:var(--ink)}
 .hero-title{font-family:'Oswald',sans-serif;font-size:clamp(52px,9vw,128px);line-height:.88;letter-spacing:-.02em;max-width:800px}
 .hero-title .outline{-webkit-text-stroke:1.5px var(--ink);color:transparent}
 .hero-title .x{color:var(--muted);font-weight:300}
@@ -111,12 +113,8 @@ body{background:#000000;color:var(--ink);font-family:'Barlow',sans-serif;line-he
 
 /* ── Insights ────────────────────────────────────────────────────────────── */
 .insights-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.insight-box{padding:18px 22px;background:var(--card);border:1px solid var(--border);border-radius:var(--r);border-left:4px solid var(--green-v);box-shadow:var(--shadow)}
-.insight-box.gold{border-left-color:var(--gold)}
-.insight-box.blue{border-left-color:#29b6f6}
+.insight-box{padding:18px 22px;background:var(--card);border:1px solid var(--border);border-radius:var(--r);border-left:4px solid var(--green);box-shadow:var(--shadow)}
 .insight-label{font-family:'Oswald',sans-serif;font-size:12px;text-transform:uppercase;letter-spacing:.16em;color:var(--green);margin-bottom:7px;display:flex;align-items:center;gap:6px}
-.insight-box.gold .insight-label{color:var(--gold)}
-.insight-box.blue .insight-label{color:#29b6f6}
 .insight-text{font-size:13px;color:var(--ink2);line-height:1.85}
 .insight-text strong{color:var(--ink);font-weight:700}
 
@@ -315,7 +313,7 @@ body{background:#000000;color:var(--ink);font-family:'Barlow',sans-serif;line-he
   transition:opacity .2s;
   min-height:28px;
 }
-.scroll-cat-league .circular-chart-title{color:var(--gold)}
+.scroll-cat-league .circular-chart-title{color:var(--green-v)}
 
 .circular-chart-desc{
   font-family:'Barlow',sans-serif;
@@ -377,11 +375,11 @@ body{background:#000000;color:var(--ink);font-family:'Barlow',sans-serif;line-he
 .swiss-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
 .swiss-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:17px 20px;display:flex;justify-content:space-between;align-items:center;box-shadow:var(--shadow)}
 .swiss-lbl{font-family:'Barlow',sans-serif;font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
-.swiss-val{font-family:'Oswald',sans-serif;font-size:25px;color:#00897b}
+.swiss-val{font-family:'Oswald',sans-serif;font-size:25px;color:#c05c14}
 
 /* ── Swiss toggle ────────────────────────────────────────────────────────── */
 .swiss-toggle-wrap{margin-top:32px}
-.swiss-toggle-card{display:flex;align-items:center;gap:20px;background:var(--card);border:1.5px solid #29b6f6;border-radius:var(--r-lg);padding:22px 26px;box-shadow:0 4px 24px rgba(2,119,189,.1)}
+.swiss-toggle-card{display:flex;align-items:center;gap:20px;background:var(--card);border:1.5px solid #c05c14;border-radius:var(--r-lg);padding:22px 26px;box-shadow:0 4px 24px rgba(192,92,20,.1)}
 .swiss-toggle-icon{font-size:38px;flex-shrink:0}
 .swiss-toggle-text{flex:1;min-width:0}
 .swiss-toggle-title{font-family:'Oswald',sans-serif;font-size:18px;color:var(--ink);margin-bottom:5px}
@@ -389,10 +387,10 @@ body{background:#000000;color:var(--ink);font-family:'Barlow',sans-serif;line-he
 .swiss-toggle-btn{display:flex;align-items:center;gap:12px;border:none;background:transparent;cursor:pointer;flex-shrink:0;padding:0}
 .stb-off,.stb-on{font-family:'Barlow',sans-serif;font-size:12px;text-transform:uppercase;letter-spacing:.1em;font-weight:700;transition:opacity .2s}
 .stb-off{color:var(--ink2)}
-.stb-on{color:#00897b;display:none}
+.stb-on{color:#c05c14;display:none}
 .stb-track{width:46px;height:24px;background:var(--bg3);border-radius:999px;position:relative;transition:background .3s;flex-shrink:0}
 .stb-thumb{position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#333333;box-shadow:0 1px 4px rgba(255,255,255,.2);transition:transform .3s,background .3s}
-.swiss-toggle-btn[aria-pressed="true"] .stb-track{background:#00897b}
+.swiss-toggle-btn[aria-pressed="true"] .stb-track{background:#c05c14}
 .swiss-toggle-btn[aria-pressed="true"] .stb-thumb{transform:translateX(22px)}
 .swiss-toggle-btn[aria-pressed="true"] .stb-off{display:none}
 .swiss-toggle-btn[aria-pressed="true"] .stb-on{display:block}

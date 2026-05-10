@@ -11,32 +11,32 @@
   },
   "leagues": {
     "Premier League": {
-      "color": "#9c27b0",
+      "color": "#8225a5",
       "flag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
       "iso": "826"
     },
     "La Liga": {
-      "color": "#ef4444",
+      "color": "#b03030",
       "flag": "🇪🇸",
       "iso": "724"
     },
     "Bundesliga": {
-      "color": "#fbbf24",
+      "color": "#b08818",
       "flag": "🇩🇪",
       "iso": "276"
     },
     "Serie A": {
-      "color": "#10b981",
+      "color": "#0e8a64",
       "flag": "🇮🇹",
       "iso": "380"
     },
     "Ligue 1": {
-      "color": "#3b82f6",
+      "color": "#2860c0",
       "flag": "🇫🇷",
       "iso": "250"
     },
     "Swiss SL": {
-      "color": "#f97316",
+      "color": "#c05c14",
       "flag": "🇨🇭",
       "iso": "756"
     }
@@ -44,7 +44,7 @@
   "countries": {
     "England": {
       "league": "Premier League",
-      "color": "#9c27b0",
+      "color": "#8225a5",
       "iso": "826",
       "clubs": 20,
       "pop": "56M",
@@ -66,7 +66,7 @@
     },
     "Spain": {
       "league": "La Liga",
-      "color": "#ef4444",
+      "color": "#b03030",
       "iso": "724",
       "clubs": 20,
       "pop": "47M",
@@ -88,7 +88,7 @@
     },
     "Germany": {
       "league": "Bundesliga",
-      "color": "#fbbf24",
+      "color": "#b08818",
       "iso": "276",
       "clubs": 18,
       "pop": "83M",
@@ -110,7 +110,7 @@
     },
     "Italy": {
       "league": "Serie A",
-      "color": "#10b981",
+      "color": "#0e8a64",
       "iso": "380",
       "clubs": 20,
       "pop": "60M",
@@ -132,7 +132,7 @@
     },
     "France": {
       "league": "Ligue 1",
-      "color": "#3b82f6",
+      "color": "#2860c0",
       "iso": "250",
       "clubs": 18,
       "pop": "68M",
@@ -154,7 +154,7 @@
     },
     "Switzerland": {
       "league": "Swiss SL",
-      "color": "#f97316",
+      "color": "#c05c14",
       "iso": "756",
       "clubs": 12,
       "pop": "8.7M",
