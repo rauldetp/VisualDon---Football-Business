@@ -187,7 +187,7 @@ body{background:#000000;color:var(--ink);font-family:'Barlow',sans-serif;line-he
   overflow:visible;
 }
 .gallery_box_outer{position:absolute;top:50%;left:50%;width:clamp(380px,82vw,640px);height:clamp(300px,52vh,420px);max-width:640px;transform:translate(-50%,-50%);transform-style:preserve-3d;border-radius:32px;overflow:visible}
-.gallery_box_outer::before{content:'';position:absolute;inset:0;border-radius:32px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08),inset 0 0 32px rgba(0,0,0,.16);pointer-events:none}
+.gallery_box_outer::before{content:none}
 .gallery_box_in{position:absolute;width:min(340px,82vw);height:min(290px,46vh);left:50%;top:50%;transform-style:preserve-3d;transform-origin:center center;border-radius:22px;overflow:hidden;border:1px solid rgba(255,255,255,.14);background-size:cover;background-position:center;background-repeat:no-repeat;box-shadow:0 20px 40px rgba(0,0,0,.28);backface-visibility:hidden}
 .gallery_box_in .overlay{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:12px 14px 16px;background:linear-gradient(180deg,rgba(0,0,0,0) 42%,rgba(0,0,0,.92) 100%)}
 .gallery_box_in .overlay h3{font-family:'Oswald',sans-serif;font-size:clamp(16px,1.8vw,20px);margin:0 0 8px 0;color:var(--ink)}
