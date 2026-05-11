@@ -151,3 +151,76 @@ The site will combine narrative structure with interactive elements (hover, filt
 Elite European football has become a powerful economic system characterized by sustained financial growth.
 
 By visualizing revenue expansion, ticket price inflation and merchandising cost increases, and comparing them with national income levels, this project seeks to make visible the structural transformation of football and question its evolving accessibility.
+
+---
+
+## ✅ What We Actually Built
+
+> This section documents the adjustments made relative to the initial intentions described above.
+
+### 🔧 Final Tech Stack
+
+The project evolved well beyond a simple D3.js site. The final stack is:
+
+- **Vite 5** — bundler and dev server (not part of the original plan)
+- **D3.js v7** — charts, scales, axes, SVG transitions
+- **GSAP 3 + ScrollTrigger** — scroll-driven animations, 3D carousel, section pinning (major addition vs. initial plan)
+- **HTML / CSS / JavaScript vanilla** — ES Modules, no UI framework
+
+### 🗂 Modular Architecture
+
+The codebase is split into distinct modules:
+
+| File | Role |
+|---|---|
+| `data.js` | Data loading and structuring |
+| `store.js` | Shared global state across modules |
+| `charts.js` | Line charts (TV rights evolution, correlations) |
+| `scroll.js` | Scroll-driven circular bar visualizations |
+| `map.js` | Interactive SVG map by country/league |
+| `main.js` | Orchestration and initialization |
+
+### 📊 Visualizations Built
+
+1. **Hero section** — animated key stats on load (Big 5 aggregates)
+2. **Historical carousel** — key moments in modern football (1992–2021), GSAP 3D animation
+3. **Interactive SVG map** — country-level navigation, league data on click
+4. **Circular bar charts** — revenue, ticket, jersey and salary evolution (1990–2026) per league
+5. **Line charts** — TV rights evolution and economic correlations
+6. **Supporter cost section** — tickets + jerseys + TV subscriptions + merchandising
+7. **Switzerland comparison** — Swiss Super League as an accessible reference point
+8. **Epilogue** — editorial synthesis + 2070 projection (CAGR model)
+
+### 📈 Key Figures (Big 5 aggregate, 1990–2026)
+
+| Indicator | Value |
+|---|---|
+| TV rights growth | +1,340% (€365M → €5,255M) |
+| Average ticket price | €49 |
+| Official adult jersey | €90 |
+| Total Big 5 revenues | ~€37 billion/year |
+
+### 📚 Sources Actually Used
+
+The sources listed initially were partially revised. The following were effectively used:
+
+- **Deloitte Football Money League** — club and league revenues
+- **DFL Economic Report** — Bundesliga data
+- **LFP (Ligue de Football Professionnel)** — Ligue 1 data
+- **LaLiga** — La Liga financial data
+- **Lega Serie A** — Serie A annual report
+- **SFL (Swiss Football League)** — Swiss Super League data
+- **Football Supporters Europe** — supporter costs, ticket prices
+- **Eurostat** — national median incomes, economic context
+
+> Sources initially considered but **not retained**: UEFA Financial Reports (aggregate data not usable at league level), CIES Football Observatory (not directly integrated), World Bank / OECD (replaced by Eurostat for European granularity).
+
+### 📐 Data Format
+
+Data was ultimately structured as **JSON** (rather than CSV as originally planned), in a single file:
+
+```
+public/data/football-data.json
+```
+
+This allowed time series per league to be embedded directly and fed into all modules through a single shared store.
